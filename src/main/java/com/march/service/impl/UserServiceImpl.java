@@ -6,6 +6,8 @@ import com.march.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -22,5 +24,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user=new User();
         user.setUserId(id);
         return user.selectById();
+    }
+
+    @Override
+    public List<User> findAllUser() {
+        User user=new User();
+        return user.selectAll();
     }
 }

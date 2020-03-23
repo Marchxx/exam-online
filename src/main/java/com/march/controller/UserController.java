@@ -4,6 +4,7 @@ package com.march.controller;
 import com.march.biz.UserBiz;
 import com.march.utils.R;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,9 +28,16 @@ public class UserController {
     @Autowired
     UserBiz userBiz;
 
+    @ApiOperation(value = "根据ID查找")
     @GetMapping("/{id}")
     public R findUserById(@PathVariable("id") Integer id){
         return userBiz.findUserById(id);
+    }
+
+    @ApiOperation(value = "查找所有用户")
+    @GetMapping("/list")
+    public R findUserList(){
+        return userBiz.findUserList();
     }
 }
 
