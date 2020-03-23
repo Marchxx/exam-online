@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.march.dao.ExamMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.march.entity.Exam">
+        <id column="exam_id" property="examId" />
+        <result column="exam_name" property="examName" />
+        <result column="exam_desc" property="examDesc" />
+        <result column="exam_score_total" property="examScoreTotal" />
+        <result column="exam_score_pass" property="examScorePass" />
+        <result column="exam_time_start" property="examTimeStart" />
+        <result column="exam_time_limit" property="examTimeLimit" />
+        <result column="exam_creator_id" property="examCreatorId" />
+        <result column="is_issued" property="isIssued" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+</mapper>

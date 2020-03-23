@@ -1,0 +1,12 @@
+#Mysql
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/exam_online?serverTimezone=UTC
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+server:
+  port: 8088
+#  Swagger2
+swagger:
+  enable: true
