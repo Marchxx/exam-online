@@ -1,6 +1,6 @@
 package com.march.service;
 
-import com.march.entity.Question;
+import com.march.entity.RecordOption;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author March
  * @since 2020-03-24
  */
-public interface QuestionService extends IService<Question> {
+public interface RecordOptionService extends IService<RecordOption> {
 
 }

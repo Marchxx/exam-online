@@ -1,8 +1,8 @@
 package com.march.service.impl;
 
-import com.march.entity.Question;
-import com.march.dao.QuestionMapper;
-import com.march.service.QuestionService;
+import com.march.entity.Role;
+import com.march.dao.RoleMapper;
+import com.march.service.RoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2020-03-24
  */
 @Service
-public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> implements QuestionService {
+public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
 
 }

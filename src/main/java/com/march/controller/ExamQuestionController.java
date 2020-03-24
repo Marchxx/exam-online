@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020-03-24
  */
 @RestController
-@RequestMapping("/exam")
-public class ExamController {
+@RequestMapping("/examQuestion")
+public class ExamQuestionController {
 
 }
 

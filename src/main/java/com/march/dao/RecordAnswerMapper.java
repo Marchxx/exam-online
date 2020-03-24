@@ -1,6 +1,6 @@
 package com.march.dao;
 
-import com.march.entity.Exam;
+import com.march.entity.RecordAnswer;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author March
  * @since 2020-03-24
  */
-public interface ExamMapper extends BaseMapper<Exam> {
+public interface RecordAnswerMapper extends BaseMapper<RecordAnswer> {
 
 }

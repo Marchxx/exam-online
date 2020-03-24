@@ -21,31 +21,22 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Question对象", description="")
-public class Question extends Model<Question> {
+@ApiModel(value="QuestionType对象", description="")
+public class QuestionType extends Model<QuestionType> {
 
     private static final long serialVersionUID=1L;
 
-    @ApiModelProperty(value = "题目id，主键")
-    @TableId(value = "question_id", type = IdType.AUTO)
-    private Integer questionId;
-
-    @ApiModelProperty(value = "题目名称")
-    private String questionName;
-
-    @ApiModelProperty(value = "题目分数")
-    private Integer questionScore;
-
-    @ApiModelProperty(value = "题型种类，如单选，多选")
+    @ApiModelProperty(value = "题目类型Id，主键")
+    @TableId(value = "question_type_id", type = IdType.AUTO)
     private Integer questionTypeId;
 
-    @ApiModelProperty(value = "题目分类，如Java，c++")
-    private Integer questionCategoryId;
+    @ApiModelProperty(value = "题目类型名称")
+    private String questionTypeName;
 
 
     @Override
     protected Serializable pkVal() {
-        return this.questionId;
+        return this.questionTypeId;
     }
 
 }

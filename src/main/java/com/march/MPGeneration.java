@@ -17,7 +17,8 @@ public class MPGeneration {
 
     public static void main(String[] args) {
         // 代码生成路径
-        String outPutDir = System.getProperty("user.dir") + "\\src\\main\\java";
+        //String outPutDir = System.getProperty("user.dir") + "\\src\\main\\java";
+        String outPutDir="C:\\Users\\Demons\\Desktop";
         // 数据库地址
         String dbUrl = "jdbc:mysql://127.0.0.1:3306/exam_online?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true&rewriteBatchedStatements=true";
         // 数据库账号
@@ -28,7 +29,10 @@ public class MPGeneration {
         String[] tablePrefix = {};
         // 需要生成代码的表单
 
-        String[] tables = {"user","exam","question"};
+        String[] tables = {"user","exam","question",
+                "exam_question","exam_record", "question_answer",
+                "question_category","question_option", "question_type",
+                "record_answer","record_option","role"};
 
         // 作者
         String author = "March";
