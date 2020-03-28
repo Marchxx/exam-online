@@ -1,5 +1,6 @@
 package com.march.main.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.march.main.entity.User;
 import com.march.main.dao.UserMapper;
 import com.march.main.service.UserService;
@@ -30,5 +31,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public List<User> findAllUser() {
         User user=new User();
         return user.selectAll();
+    }
+
+    @Override
+    public User getByAccount(String account) {
+        User user=new User();
+        QueryWrapper<User> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("user_name",account);
+        return user.selectOne(queryWrapper);
     }
 }

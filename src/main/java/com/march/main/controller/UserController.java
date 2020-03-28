@@ -3,14 +3,15 @@ package com.march.main.controller;
 
 import com.march.main.biz.UserBiz;
 import com.march.common.utils.R;
+import com.march.main.params.LoginParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.HttpRequest;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -39,5 +40,21 @@ public class UserController {
     public R findUserList(){
         return userBiz.findUserList();
     }
+
+    @PostMapping("/login")
+    @ApiOperation(value = "根据用户名登录，登录成功返回token")
+    public R login(@RequestBody @Validated LoginParam loginParam){
+        return userBiz.login(loginParam);
+    }
+
+    @ApiOperation(value = "测试接口")
+    @GetMapping("/test")
+    public String test(HttpServletRequest request){
+        String userName=request.getAttribute("username").toString();
+        String userId=request.getAttribute("id").toString();
+        System.out.println(userName+" "+userId);
+        return userName+userId;
+    }
+
 }
 

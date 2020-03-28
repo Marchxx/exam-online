@@ -1,5 +1,5 @@
-#Mysql
 spring:
+  #Mysql
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/exam_online?serverTimezone=UTC
     username: root
@@ -7,6 +7,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   main:
     allow-bean-definition-overriding: true
+  #redis
+  redis:
+    host: 118.178.253.94
 server:
   port: 8088
 #  Swagger2
