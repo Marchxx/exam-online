@@ -17,21 +17,25 @@ public class MPGeneration {
 
     public static void main(String[] args) {
         // 代码生成路径
-        String outPutDir = System.getProperty("user.dir") + "\\main\\src\\main\\java";
+        //String outPutDir = System.getProperty("user.dir") + "\\src\\main\\java";
+        String outPutDir = "C:\\Users\\Demons\\Desktop";
         // 数据库地址
-        String dbUrl = "jdbc:mysql://118.25.209.22:3306/supplies_purchase?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true&rewriteBatchedStatements=true";
+        String dbUrl = "jdbc:mysql://127.0.0.1:3306/exam_online?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true&rewriteBatchedStatements=true";
         // 数据库账号
-        String dbUsername = "Tibet";
+        String dbUsername = "root";
         // 数据库密码
-        String dbPassword = "supplies7220";
+        String dbPassword = "";
         // 添加表单前缀，不需要则留空
         String[] tablePrefix = {};
         // 需要生成代码的表单
 
-        String[] tables = {"apply_order_number"};
+        String[] tables = {"user", "exam", "question",
+                "exam_question", "exam_record", "question_answer",
+                "question_category", "question_option", "question_type",
+                "record_answer", "record_option", "role"};
 
         // 作者
-        String author = "tangcan";
+        String author = "March";
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
@@ -42,7 +46,7 @@ public class MPGeneration {
                 .setEnableCache(false)      // XML 二级缓存
                 .setBaseResultMap(true)     // XML ResultMap
                 .setBaseColumnList(false)   // XML columList
-                .setControllerName("%sController") //自定义文件命名，注意 %s 会自动填充表实体属性！
+                .setControllerName("%sController")
                 .setServiceName("%sService")
                 .setServiceImplName("%sServiceImpl")
                 .setMapperName("%sMapper")
@@ -51,7 +55,7 @@ public class MPGeneration {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.xiyou.main")
+        pc.setParent("com.march")
                 .setController("controller")
                 .setService("service")
                 .setServiceImpl("service.impl")
