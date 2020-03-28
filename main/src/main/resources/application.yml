@@ -5,6 +5,8 @@ spring:
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
+  main:
+    allow-bean-definition-overriding: true
 server:
   port: 8088
 #  Swagger2

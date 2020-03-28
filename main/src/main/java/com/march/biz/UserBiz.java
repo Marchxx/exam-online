@@ -1,9 +1,9 @@
 package com.march.biz;
 
 import com.march.entity.User;
-import com.march.enums.CodeEnum;
 import com.march.service.UserService;
-import com.march.utils.R;
+import com.xiyou.common.enums.CodeEnum;
+import com.xiyou.common.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -2,7 +2,7 @@ package com.march.controller;
 
 
 import com.march.biz.UserBiz;
-import com.march.utils.R;
+import com.xiyou.common.utils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
