@@ -6,12 +6,6 @@
     <!--父pom的packaging必须为pom-->
     <packaging>pom</packaging>
 
-    <!--声明多个子模块-->
-    <modules>
-        <module>common</module>
-        <module>main</module>
-    </modules>
-
     <!--指定整个项目的父模块-->
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -40,65 +34,63 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!--MybatisPlus的Springboot支持-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+        <!--MP代码自动生成-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.2</version>
+        </dependency>
+        <!--Swagger2-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <!-- lombok 省略部分代码，如setter getter-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--Mysql-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
-
-    <!--        &lt;!&ndash;MybatisPlus的Springboot支持&ndash;&gt;-->
-    <!--        <dependency>-->
-    <!--            <groupId>com.baomidou</groupId>-->
-    <!--            <artifactId>mybatis-plus-boot-starter</artifactId>-->
-    <!--            <version>3.3.0</version>-->
-    <!--        </dependency>-->
-    <!--        &lt;!&ndash;MP代码自动生成&ndash;&gt;-->
-    <!--        <dependency>-->
-    <!--            <groupId>com.baomidou</groupId>-->
-    <!--            <artifactId>mybatis-plus-generator</artifactId>-->
-    <!--            <version>3.3.0</version>-->
-    <!--        </dependency>-->
-    <!--        <dependency>-->
-    <!--            <groupId>org.apache.velocity</groupId>-->
-    <!--            <artifactId>velocity-engine-core</artifactId>-->
-    <!--            <version>2.2</version>-->
-    <!--        </dependency>-->
-    <!--        &lt;!&ndash;Swagger2&ndash;&gt;-->
-    <!--        <dependency>-->
-    <!--            <groupId>io.springfox</groupId>-->
-    <!--            <artifactId>springfox-swagger2</artifactId>-->
-    <!--            <version>2.9.2</version>-->
-    <!--        </dependency>-->
-    <!--        <dependency>-->
-    <!--            <groupId>io.springfox</groupId>-->
-    <!--            <artifactId>springfox-swagger-ui</artifactId>-->
-    <!--            <version>2.9.2</version>-->
-    <!--        </dependency>-->
-    <!--        &lt;!&ndash; lombok 省略部分代码，如setter getter&ndash;&gt;-->
-    <!--        <dependency>-->
-    <!--            <groupId>org.projectlombok</groupId>-->
-    <!--            <artifactId>lombok</artifactId>-->
-    <!--            <version>1.18.10</version>-->
-    <!--        </dependency>-->
-
-    <!--        <dependency>-->
-    <!--            <groupId>org.springframework.boot</groupId>-->
-    <!--            <artifactId>spring-boot-starter-web</artifactId>-->
-    <!--        </dependency>-->
-    <!--        &lt;!&ndash;Mysql&ndash;&gt;-->
-    <!--        <dependency>-->
-    <!--            <groupId>mysql</groupId>-->
-    <!--            <artifactId>mysql-connector-java</artifactId>-->
-    <!--            <scope>runtime</scope>-->
-    <!--        </dependency>-->
-    <!--        <dependency>-->
-    <!--            <groupId>org.springframework.boot</groupId>-->
-    <!--            <artifactId>spring-boot-starter-test</artifactId>-->
-    <!--            <scope>test</scope>-->
-    <!--            <exclusions>-->
-    <!--                <exclusion>-->
-    <!--                    <groupId>org.junit.vintage</groupId>-->
-    <!--                    <artifactId>junit-vintage-engine</artifactId>-->
-    <!--                </exclusion>-->
-    <!--            </exclusions>-->
-    <!--        </dependency>-->
-    <!--    </dependencies>-->
-
 
 </project>
