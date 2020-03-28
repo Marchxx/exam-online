@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class UserBiz {
 
-    @Autowired
+    @Autowired//必须加
     UserService userService;
 
     public R findUserById(Integer id) {
