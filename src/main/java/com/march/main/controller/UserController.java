@@ -6,6 +6,7 @@ import com.march.common.utils.R;
 import com.march.main.params.LoginParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.validation.annotation.Validated;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author March
@@ -31,30 +32,28 @@ public class UserController {
 
     @ApiOperation(value = "根据ID查找")
     @GetMapping("/{id}")
-    public R findUserById(@PathVariable("id") Integer id){
+    public R findUserById(@PathVariable("id") Integer id) {
         return userBiz.findUserById(id);
     }
 
     @ApiOperation(value = "查找所有用户")
     @GetMapping("/list")
-    public R findUserList(){
+    public R findUserList() {
         return userBiz.findUserList();
     }
 
     @PostMapping("/login")
     @ApiOperation(value = "根据用户名登录，登录成功返回token")
-    public R login(@RequestBody @Validated LoginParam loginParam){
+    public R login(@RequestBody @Validated LoginParam loginParam) {
         return userBiz.login(loginParam);
     }
 
     @ApiOperation(value = "测试接口")
     @GetMapping("/test")
-    public String test(HttpServletRequest request){
-        String userName=request.getAttribute("username").toString();
-        String userId=request.getAttribute("id").toString();
-        System.out.println(userName+" "+userId);
-        return userName+userId;
+    public String test(HttpServletRequest request) {
+        String username = request.getAttribute("username").toString();
+        String id = request.getAttribute("id").toString();
+        return "用户名=" + username + "\nid=" + id;
     }
-
 }
 

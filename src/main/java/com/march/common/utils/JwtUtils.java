@@ -10,15 +10,16 @@ import java.util.Date;
 public class JwtUtils {
 
     /**
-     * 过期时间一分钟,静态域属于类
+     * 过期时间一天,静态域是属于整个类
      */
-    private static long EXPIRE_TIME = 1000 * 60 * 1;
+    private static long EXPIRE_TIME = 1000 * 60 * 60 * 24;
     /**
      * 数字签名的私钥
      */
     private static final String APP_KEY = "march_exam";
 
     /**
+     * 签发Token
      * 一个JWT实际上就是一个字符串，它由三部分组成，头部(Header)、载荷(Payload)与签名(Signature)
      * @return
      */
@@ -37,6 +38,11 @@ public class JwtUtils {
                 .compact();
     }
 
+    /**
+     * 验证Token
+     * @param token
+     * @return
+     */
     public static Claims checkJWT(String token) {
         try {
             return Jwts.parser()
