@@ -9,14 +9,17 @@ public enum CodeEnum {
     操作
      */
     SUCCESS(200,"请求成功"),
+    OTHER_ERROR(777,"操作失败,请重试!"),
 
     /*
     认证
      */
     REGISTER_FAILED(1001,"注册失败"),
-    LOGIN_FAILED(1002, "用户名或者密码错误"),
+    LOGIN_FAILED(1002, "密码错误"),
     PARAM_ERROR(1003,"参数不正确"),
-    USER_NOT_EXIST(1004,"用户不存在");
+    USER_NOT_EXIST(1004,"用户不存在"),
+    USER_ALREADY_EXIST(1005,"用户已存在");
+
 
 
 //    /*

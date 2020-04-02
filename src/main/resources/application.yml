@@ -13,3 +13,7 @@ server:
 #  Swagger2
 swagger:
   enable: true
+# 打印Sql日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

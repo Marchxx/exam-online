@@ -1,6 +1,7 @@
 package com.march.main.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
@@ -27,7 +28,7 @@ public class User extends Model<User> {
 
     private static final long serialVersionUID=1L;
 
-    @ApiModelProperty(value = "用户id，主键")
+    @ApiModelProperty(value = "用户id，主键。注册可不填，更新时必填")
     @TableId(value = "user_id", type = IdType.AUTO)
     private Integer userId;
 
@@ -46,13 +47,13 @@ public class User extends Model<User> {
     @ApiModelProperty(value = "手机号码")
     private String phone;
 
-    @ApiModelProperty(value = "用户-对应角色id")
+    @ApiModelProperty(value = "用户-对应角色id,默认为3")
     private Integer roleId;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "创建时间",hidden = true)
     private LocalDateTime createTime;
 
-    @ApiModelProperty(value = "更新时间")
+    @ApiModelProperty(value = "更新时间",hidden = true)
     private LocalDateTime updateTime;
 
 

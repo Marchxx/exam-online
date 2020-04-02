@@ -20,4 +20,8 @@ public interface UserService extends IService<User> {
     List<User> findAllUser();
 
     User getByAccount(String account);
+
+    User getInfo(Integer id);
+
+    int batchDeleteUserByIds(Integer[] ids);
 }
