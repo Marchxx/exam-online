@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: test
+    active:
   #Mysql
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/exam_online?serverTimezone=UTC
@@ -19,3 +19,7 @@ swagger:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  #  开启驼峰映射
+    map-underscore-to-camel-case: true
+  #  用了@MapperScan可以不配置接口包，但要配置编译出来的.xml文件位置
+  mapper-locations: classpath*:com/march/main/mapper/*.xml

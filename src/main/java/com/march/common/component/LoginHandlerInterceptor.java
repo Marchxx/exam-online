@@ -27,7 +27,6 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         if (token == null)
             //若为空，则从请求参数中获取，(token-xxx)
             token = request.getParameter("token");
-        System.out.println("token为"+token);
         if (token != null) {
             //传入token不为空
             Claims claims = JwtUtils.checkJWT(token);

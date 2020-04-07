@@ -4,11 +4,47 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.march.main.entity.Question">
-        <id column="question_id" property="questionId" />
-        <result column="question_name" property="questionName" />
-        <result column="question_score" property="questionScore" />
-        <result column="question_type_id" property="questionTypeId" />
-        <result column="question_category_id" property="questionCategoryId" />
+        <id column="question_id" property="questionId"/>
+        <result column="question_name" property="questionName"/>
+        <result column="question_score" property="questionScore"/>
+        <result column="question_type_id" property="questionTypeId"/>
+        <result column="question_category_id" property="questionCategoryId"/>
     </resultMap>
 
+    <select id="getOpsListByTypeId" resultType="com.march.main.vo.QuestionOptionVo">
+    SELECT
+	q.question_id,
+	q.question_name
+FROM
+	question q
+WHERE
+	q.question_type_id = #{id}
+ORDER BY
+	q.question_id
+    </select>
+
+    <select id="getOthersListByTypeId" resultType="com.march.main.vo.QuestionAnswerVo">
+    SELECT
+	q.question_id,
+	q.question_name,
+	qa.answer
+FROM
+	question q
+LEFT JOIN question_answer qa ON qa.question_id = q.question_id
+WHERE
+	q.question_type_id = #{id}
+    </select>
+
+    <select id="getOptionDetailById" resultType="com.march.main.vo.OptionContentVo">
+SELECT
+	qo.content,
+	qo.idx,
+	qo.answer
+FROM
+	question_option qo
+WHERE
+	qo.question_id= #{id}
+ORDER BY
+	qo.idx
+    </select>
 </mapper>
