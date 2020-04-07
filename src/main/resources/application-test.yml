@@ -1,11 +1,10 @@
 spring:
-  profiles:
-    active: test
+  profiles: test
   #Mysql
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/exam_online?serverTimezone=UTC
+    url: jdbc:mysql://118.178.253.94:3306/exam_online?serverTimezone=UTC
     username: root
-    password:
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
   #redis
   redis:

@@ -54,6 +54,7 @@ public class UserController {
     @ApiOperation(value = "获取当前登录用户信息")
     public R getInfo(HttpServletRequest request) {
         String id = request.getAttribute("id").toString();
+        System.out.println(request.getParameter("token"));
         return userBiz.getInfo(Integer.parseInt(id));
     }
 
@@ -76,12 +77,13 @@ public class UserController {
         return userBiz.register(user);
     }
 
-    @ApiOperation(value = "测试接口")
+    @ApiOperation(value = "测试接口") 
     @GetMapping("/test")
     public String test(HttpServletRequest request) {
         String username = request.getAttribute("username").toString();
         String id = request.getAttribute("id").toString();
         return "用户名=" + username + "\nid=" + id;
     }
+
 }
 

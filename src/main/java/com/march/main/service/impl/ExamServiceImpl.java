@@ -17,4 +17,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements ExamService {
 
+    @Override
+    public Exam findExamById(Integer id) {
+        Exam exam=new Exam();
+        exam.setExamId(id);
+        return exam.selectById();
+    }
 }

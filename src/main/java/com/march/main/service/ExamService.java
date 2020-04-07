@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ExamService extends IService<Exam> {
 
+    Exam findExamById(Integer id);
 }

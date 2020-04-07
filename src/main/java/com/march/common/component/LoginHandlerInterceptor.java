@@ -22,7 +22,12 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("进入拦截器..." + request.getRequestURI());
+        //从Http请求头中获取 (Access-Token-xxx)
         String token = request.getHeader("Access-Token");
+        if (token == null)
+            //若为空，则从请求参数中获取，(token-xxx)
+            token = request.getParameter("token");
+        System.out.println("token为"+token);
         if (token != null) {
             //传入token不为空
             Claims claims = JwtUtils.checkJWT(token);

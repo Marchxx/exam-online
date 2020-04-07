@@ -38,6 +38,7 @@ public class UserBiz {
     }
 
     public R login(LoginParam loginParam) {
+        System.out.println(loginParam);
         //查出用户信息
         User user = userService.getByAccount(loginParam.getAccount());
         if (user != null) {
@@ -46,6 +47,7 @@ public class UserBiz {
             //验证账号密码
             if (user.getUserName().equals(loginParam.getAccount()) && MD5Utils.verify(loginPwd, MD5Utils.key, dbPwd)) {
                 //登录成功，创建并返回token,对应用户的权限
+                System.out.println(user);
                 return R.success().put("msg", JwtUtils.creatJwt(user)).put("permission", user.getRoleId());
             }
             return R.error(CodeEnum.LOGIN_FAILED);
@@ -79,4 +81,5 @@ public class UserBiz {
             return R.success("人员批量删除成功");
         return R.error(CodeEnum.OTHER_ERROR);
     }
+
 }
