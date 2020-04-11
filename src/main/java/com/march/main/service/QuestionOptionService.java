@@ -3,6 +3,8 @@ package com.march.main.service;
 import com.march.main.entity.QuestionOption;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface QuestionOptionService extends IService<QuestionOption> {
 
+    boolean addOrUpdateOpts(List<QuestionOption> optionList);
 }

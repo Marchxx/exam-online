@@ -11,30 +11,6 @@
         <result column="question_category_id" property="questionCategoryId"/>
     </resultMap>
 
-    <select id="getOpsListByTypeId" resultType="com.march.main.vo.QuestionOptionVo">
-    SELECT
-	q.question_id,
-	q.question_name
-FROM
-	question q
-WHERE
-	q.question_type_id = #{id}
-ORDER BY
-	q.question_id
-    </select>
-
-    <select id="getOthersListByTypeId" resultType="com.march.main.vo.QuestionAnswerVo">
-    SELECT
-	q.question_id,
-	q.question_name,
-	qa.answer
-FROM
-	question q
-LEFT JOIN question_answer qa ON qa.question_id = q.question_id
-WHERE
-	q.question_type_id = #{id}
-    </select>
-
     <select id="getOptionDetailById" resultType="com.march.main.vo.OptionContentVo">
 SELECT
 	qo.content,
@@ -46,5 +22,52 @@ WHERE
 	qo.question_id= #{id}
 ORDER BY
 	qo.idx
+    </select>
+
+    <select id="getOpsListById" resultType="com.march.main.vo.QuestionOptionVo">
+        SELECT
+        q.question_id,
+        q.question_name,
+        q.question_score,
+        qt.question_type_name,
+        qc.question_category_name
+        FROM
+        question q
+        LEFT JOIN question_type qt ON qt.question_type_id = q.question_type_id
+        LEFT JOIN question_category qc ON qc.question_category_id = q.question_category_id
+        <where>
+            <if test="categoryId!=null">
+                and q.question_category_id = #{categoryId}
+            </if>
+            <if test="typeId!=null">
+                and q.question_type_id = #{typeId}
+            </if>
+        </where>
+        ORDER BY
+        q.question_id
+    </select>
+
+    <select id="getOthersListById" resultType="com.march.main.vo.QuestionAnswerVo">
+        SELECT
+        q.question_id,
+        q.question_name,
+        qa.answer,
+        q.question_score,
+        qt.question_type_name,
+        qc.question_category_name
+        FROM
+        question q
+        LEFT JOIN question_type qt ON qt.question_type_id = q.question_type_id
+        LEFT JOIN question_category qc ON qc.question_category_id = q.question_category_id
+        LEFT JOIN question_answer qa ON qa.question_id = q.question_id
+        <where>
+            <if test="categoryId!=null">
+                and q.question_category_id = #{categoryId}
+            </if>
+            <if test="typeId!=null">
+                and q.question_type_id = #{typeId}
+            </if>
+        </where>
+        ORDER BY q.question_id
     </select>
 </mapper>

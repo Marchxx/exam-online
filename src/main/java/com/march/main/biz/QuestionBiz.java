@@ -1,7 +1,13 @@
 package com.march.main.biz;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.march.common.enums.CodeEnum;
 import com.march.common.utils.R;
+import com.march.main.params.GetQuestListParam;
+import com.march.main.params.QuestionOptParam;
+import com.march.main.params.QuestionOtherParam;
+import com.march.main.service.QuestionAnswerService;
+import com.march.main.service.QuestionOptionService;
 import com.march.main.service.QuestionService;
 import com.march.main.vo.OptionContentVo;
 import com.march.main.vo.QuestionAnswerVo;
@@ -17,25 +23,82 @@ public class QuestionBiz {
     @Autowired
     QuestionService questionService;
 
-    public R getListByTypeId(Integer id) {
-        //区分选择和判断填空。返回的vo不同,执行的sql语句不同
-        if (id == 1 || id == 2) {
-            List<QuestionOptionVo> voList = questionService.getOpsListByTypeId(id);
-            return R.success().put("data", voList);
-        } else if (id == 3 || id == 4) {
-            List<QuestionAnswerVo> voList = questionService.getOthersListByTypeId(id);
-            return R.success().put("data", voList);
-        } else {
-            //返回传参错误
-            return R.error(CodeEnum.PARAM_ERROR);
-        }
-    }
+    @Autowired
+    QuestionOptionService qOptService;
+
+    @Autowired
+    QuestionAnswerService qAnsService;
 
     public R getOptionById(Integer id) {
         //获取选项具体内容
         List<OptionContentVo> voList = questionService.getOptionDetailById(id);
         if (!voList.isEmpty()) {
             return R.success().put("data", voList);
+        }
+        return R.error(CodeEnum.OTHER_ERROR);
+    }
+
+    public R delOptByIds(Integer[] ids) {
+        if (questionService.delOptByIds(ids) == ids.length)
+            return R.success("题目批量删除成功");
+        return R.error(CodeEnum.OTHER_ERROR);
+    }
+
+    public R delOtherByIds(Integer[] ids) {
+        if (questionService.delOtherByIds(ids) == ids.length)
+            return R.success("题目批量删除成功");
+        return R.error(CodeEnum.OTHER_ERROR);
+    }
+
+    public R getListById(GetQuestListParam param) {
+        //区分选择和判断填空。返回的vo不同,执行的sql语句不同
+        if (param.getTypeId() != null) {
+            int typeId = param.getTypeId();
+            if (typeId == 1 || typeId == 2) {
+                //处理选择题
+                List<QuestionOptionVo> voList = questionService.getOpsListById(param);
+                for (QuestionOptionVo vo : voList) {
+                    //根据题目Id查询出，对应的选项list，一起封装进Vo对象
+                    List<OptionContentVo> optList = questionService.getOptionDetailById(vo.getQuestionId());
+                    vo.setOptList(optList);
+                }
+                return R.success().put("data", voList);
+            } else if (typeId == 3 || typeId == 4) {
+                //处理填空/判断题
+                List<QuestionAnswerVo> voList = questionService.getOthersListById(param);
+                return R.success().put("data", voList);
+            }
+        }
+        //返回传参错误
+        return R.error(CodeEnum.PARAM_ERROR);
+    }
+
+    public R addOrUpdateOpts(QuestionOptParam param) {
+        try{
+            boolean flag1 = questionService.updateById(param.getQuestion());
+            //由qID和idx联合主键(不能使用MP的updateById方法)，更新选项表信息
+            //用接口实现类写QueryWrapper语句查询
+            boolean flag2 = qOptService.addOrUpdateOpts(param.getOptionList());
+            if(flag1&&flag2){
+                return R.success("题目信息更新成功");
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return R.error(CodeEnum.OTHER_ERROR);
+        }
+        return R.error(CodeEnum.OTHER_ERROR);
+    }
+
+    public R addOrUpdateother(QuestionOtherParam param) {
+        try{
+            boolean flag1 = questionService.updateById(param.getQuestion());
+            //由qID，更新答案表信息
+            boolean flag2 = qAnsService.updateById(param.getAnswer());
+            if(flag1&&flag2){
+                return R.success("题目信息更新成功");
+            }
+        }catch (Exception e){
+            return R.error(CodeEnum.OTHER_ERROR);
         }
         return R.error(CodeEnum.OTHER_ERROR);
     }

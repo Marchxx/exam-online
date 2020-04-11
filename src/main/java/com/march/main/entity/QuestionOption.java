@@ -1,5 +1,6 @@
 package com.march.main.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -25,9 +26,11 @@ public class QuestionOption extends Model<QuestionOption> {
     private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "题目id,主键")
+    @TableId(value = "question_id")
     private Integer questionId;
 
     @ApiModelProperty(value = "选项序号idx,主键")
+    @TableId(value = "idx")
     private Integer idx;
 
     @ApiModelProperty(value = "选项描述")

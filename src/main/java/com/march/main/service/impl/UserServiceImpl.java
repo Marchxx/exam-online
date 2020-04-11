@@ -33,6 +33,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
+    public List<User> findUserListByRId(Integer rId) {
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq("role_id", rId);
+        User user = new User();
+        return user.selectList(wrapper);
+    }
+
+    @Override
     public List<User> findAllUser() {
         User user = new User();
         return user.selectAll();
@@ -55,7 +63,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     //返回删除记录的条数
     public int batchDeleteUserByIds(Integer[] ids) {
-        List<Integer> idList =new ArrayList<>();
+        List<Integer> idList = new ArrayList<>();
         for (Integer id : ids) {
             idList.add(id);
         }

@@ -32,6 +32,14 @@ public class UserBiz {
         return R.success().put("data", userList);
     }
 
+    public R findUserListByRId(Integer rId) {
+        if (rId == 1 || rId == 2 || rId == 3) {
+            List<User> userList = userService.findUserListByRId(rId);
+            return R.success().put("data", userList);
+        }
+        return R.error(CodeEnum.PARAM_ERROR);
+    }
+
     public R getInfo(Integer id) {
         User user = userService.getInfo(id);
         return R.success().put("info", user);

@@ -34,6 +34,8 @@ public class MPGeneration {
                 "question_category", "question_option", "question_type",
                 "record_answer", "record_option", "role"};
 
+        //自动生成时，主键设置了自增长才会加上@TableId注解
+
         // 作者
         String author = "March";
 

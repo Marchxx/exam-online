@@ -25,4 +25,5 @@ public interface UserService extends IService<User> {
 
     int batchDeleteUserByIds(Integer[] ids);
 
+    List<User> findUserListByRId(Integer rId);
 }

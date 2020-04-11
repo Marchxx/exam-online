@@ -4,8 +4,13 @@ import com.march.common.enums.CodeEnum;
 import com.march.common.utils.JwtUtils;
 import com.march.common.utils.R;
 import com.march.main.dao.QuestionMapper;
+import com.march.main.entity.QuestionAnswer;
 import com.march.main.entity.User;
+import com.march.main.params.GetQuestListParam;
+import com.march.main.params.QuestionOtherParam;
+import com.march.main.service.QuestionAnswerService;
 import com.march.main.service.UserService;
+import com.march.main.vo.QuestionAnswerVo;
 import com.march.main.vo.QuestionOptionVo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +27,9 @@ class ExamOnlineApplicationTests {
     @Autowired
     QuestionMapper questionMapper;
 
+    @Autowired
+    QuestionAnswerService qAnsService;
+
     @Test
     void contextLoads() {
     }
@@ -37,7 +45,15 @@ class ExamOnlineApplicationTests {
 
     @Test
     void testGetQuestionlist() {
-        List<QuestionOptionVo> voList = questionMapper.getOpsListByTypeId(1);
+        GetQuestListParam param=new GetQuestListParam();
+        //param.setCategoryId(0);
+        param.setTypeId(1);
+        List<QuestionOptionVo> voList=questionMapper.getOpsListById(param);
         System.out.println(voList);
+    }
+
+    @Test
+    void testGetQuestionlist2() {
+
     }
 }

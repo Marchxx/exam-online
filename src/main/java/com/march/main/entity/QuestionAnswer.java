@@ -1,5 +1,6 @@
 package com.march.main.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -25,11 +26,11 @@ public class QuestionAnswer extends Model<QuestionAnswer> {
     private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "题目id(填空，判断),主键")
+    @TableId(value = "question_id")
     private Integer questionId;
 
     @ApiModelProperty(value = "答案描述")
     private String answer;
-
 
     @Override
     protected Serializable pkVal() {

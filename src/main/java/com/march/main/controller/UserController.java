@@ -43,6 +43,11 @@ public class UserController {
         return userBiz.findUserList();
     }
 
+    @ApiOperation(value = "根据角色rId,查找用户列表")
+    @GetMapping("/list/{id}")
+    public R findUserListByRId(@PathVariable("id") Integer rId) {
+        return userBiz.findUserListByRId(rId);
+    }
 
     @PostMapping("/update")
     @ApiOperation(value = "更新用户信息,用户ID必填")
@@ -67,7 +72,7 @@ public class UserController {
     //以下两个url无需拦截
     @PostMapping("/login")
     @ApiOperation(value = "根据用户名登录，登录成功返回token")
-    public R login(/*@RequestBody @Validated*/ LoginParam loginParam) {
+    public R login(LoginParam loginParam) {
         return userBiz.login(loginParam);
     }
 
@@ -75,14 +80,6 @@ public class UserController {
     @ApiOperation(value = "(新增/注册)用户")
     public R register(/*@Validated*/ User user) {
         return userBiz.register(user);
-    }
-
-    @ApiOperation(value = "测试接口") 
-    @GetMapping("/test")
-    public String test(HttpServletRequest request) {
-        String username = request.getAttribute("username").toString();
-        String id = request.getAttribute("id").toString();
-        return "用户名=" + username + "\nid=" + id;
     }
 
 }
