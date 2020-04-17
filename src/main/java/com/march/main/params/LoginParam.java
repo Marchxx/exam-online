@@ -10,7 +10,6 @@ import lombok.NonNull;
 import javax.validation.constraints.NotBlank;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "登录参数")
 public class LoginParam {
 

@@ -7,14 +7,12 @@ import com.march.main.dao.ClassMapper;
 import com.march.main.dao.ClassStuMapper;
 import com.march.main.dao.QuestionMapper;
 import com.march.main.entity.ClassStu;
+import com.march.main.entity.ExamQuestion;
 import com.march.main.entity.QuestionAnswer;
 import com.march.main.entity.User;
 import com.march.main.params.GetQuestListParam;
 import com.march.main.params.QuestionOtherParam;
-import com.march.main.service.ClassService;
-import com.march.main.service.ClassStuService;
-import com.march.main.service.QuestionAnswerService;
-import com.march.main.service.UserService;
+import com.march.main.service.*;
 import com.march.main.vo.ClassStuVo;
 import com.march.main.vo.QuestionAnswerVo;
 import com.march.main.vo.QuestionOptionVo;
@@ -37,6 +35,10 @@ class ExamOnlineApplicationTests {
     ClassMapper classMapper;
     @Autowired
     ClassService classService;
+    @Autowired
+    ExamService examService;
+    @Autowired
+    ExamQuestionService examQuestionService;
 
     @Test
     void contextLoads() {
@@ -73,5 +75,16 @@ class ExamOnlineApplicationTests {
         Integer[] stus = {1,2};
         int addStu = classService.getDelStu(1, stus);
         System.out.println(addStu);
+    }
+
+    @Test
+    void testInsertExam(){
+        //测试MybatisPlus获取insert自动增量
+        ExamQuestion question=new ExamQuestion();
+        question.setId(15);
+        question.setExamId(1);
+        System.out.println(question.getId());
+        boolean insert = question.insert();
+        System.out.println(question.getId());
     }
 }

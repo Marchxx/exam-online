@@ -51,7 +51,7 @@ public class UserController {
 
     @PostMapping("/update")
     @ApiOperation(value = "更新用户信息,用户ID必填")
-    public R updateInfoById(User user) {
+    public R updateInfoById(@RequestBody User user) {
         return userBiz.updateInfoById(user);
     }
 
@@ -78,7 +78,7 @@ public class UserController {
 
     @PostMapping("/register")
     @ApiOperation(value = "(新增/注册)用户")
-    public R register(/*@Validated*/ User user) {
+    public R register(@RequestBody User user) {
         return userBiz.register(user);
     }
 

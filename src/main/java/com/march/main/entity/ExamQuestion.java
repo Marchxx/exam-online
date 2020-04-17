@@ -26,16 +26,15 @@ public class ExamQuestion extends Model<ExamQuestion> {
 
     private static final long serialVersionUID=1L;
 
-    @ApiModelProperty(value = "流水号id,主键,自增")
+    @ApiModelProperty(value = "流水号id,主键,自增",hidden = true)
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "考试id")
+    @ApiModelProperty(value = "考试id",hidden = true)
     private Integer examId;
 
     @ApiModelProperty(value = "题目id")
     private Integer questionId;
-
 
     @Override
     protected Serializable pkVal() {

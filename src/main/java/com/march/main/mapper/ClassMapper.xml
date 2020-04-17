@@ -46,6 +46,7 @@ ORDER BY
 	SELECT
 	c.class_id,
 	c.class_name,
+	`user`.user_id,
 	`user`.`name`,
 	`user`.email,
 	`user`.phone

@@ -4,14 +4,12 @@ package com.march.main.controller;
 
 import com.march.common.utils.R;
 import com.march.main.biz.ExamBiz;
+import com.march.main.entity.Exam;
+import com.march.main.params.ExamParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -29,10 +27,29 @@ public class ExamController {
     @Autowired
     ExamBiz examBiz;
 
-    @ApiOperation(value = "根据id，查询考试记录")
-    @GetMapping("/{id}")
-    public R findExamById(@PathVariable("id") Integer id){
-        return examBiz.findExamById(id);
+    @ApiOperation(value = "根据tea_id,查询(全部)考试列表")
+    @GetMapping("/tea/{id}")
+    public R findExamListByTid(@PathVariable("id") Integer id){
+        return examBiz.findExamListByTid(id);
+    }
+
+    @ApiOperation(value = "根据stu_id,查询(已发布)的考试列表")
+    @GetMapping("/stu/{id}")
+    public R findExamListBySid(@PathVariable("id") Integer id){
+        return examBiz.findExamListBySid(id);
+    }
+
+    @ApiOperation(value = "全部考试列表")
+    @GetMapping("/list/all")
+    public R findAllExam(){
+        return examBiz.findAllExam();
+    }
+
+    @ApiOperation(value = "新建考试信息,时间格式yyyy-MM-dd HH:mm:ss(examId不用填)")
+    @PostMapping("/add")
+    public R addExam(@RequestBody ExamParam examParam){
+        System.out.println(examParam);
+        return examBiz.addExam(examParam);
     }
 
 }

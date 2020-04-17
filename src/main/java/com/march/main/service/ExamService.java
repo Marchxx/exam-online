@@ -2,6 +2,9 @@ package com.march.main.service;
 
 import com.march.main.entity.Exam;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.march.main.params.ExamParam;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,4 +17,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface ExamService extends IService<Exam> {
 
     Exam findExamById(Integer id);
+
+    boolean addExam(ExamParam examParam);
+
+    List<Exam> findExamListByTid(Integer id,Integer flag);
+
+    List<Exam> findAllExam();
 }

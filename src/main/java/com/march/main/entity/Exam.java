@@ -1,10 +1,13 @@
 package com.march.main.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -43,7 +46,8 @@ public class Exam extends Model<Exam> {
     @ApiModelProperty(value = "及格分数")
     private Integer examScorePass;
 
-    @ApiModelProperty(value = "考试开始时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "考试开始时间yyyy-MM-dd HH:mm:ss")
     private LocalDateTime examTimeStart;
 
     @ApiModelProperty(value = "考试限制时间")
@@ -52,13 +56,19 @@ public class Exam extends Model<Exam> {
     @ApiModelProperty(value = "考试创建者id")
     private Integer examCreatorId;
 
+    @TableField(exist = false)
+    @ApiModelProperty(value = "考试创建者姓名,数据库表中不存在",hidden = true)
+    private String examCreatorName;
+
     @ApiModelProperty(value = "0未发布,1已发布")
     private Integer isIssued;
 
-    @ApiModelProperty(value = "创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "创建时间yyyy-MM-dd HH:mm:ss",hidden = true)
     private LocalDateTime createTime;
 
-    @ApiModelProperty(value = "更新时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "更新时间yyyy-MM-dd HH:mm:ss",hidden = true)
     private LocalDateTime updateTime;
 
 

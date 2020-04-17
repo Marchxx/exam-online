@@ -74,15 +74,15 @@ public class QuestionBiz {
     }
 
     public R addOrUpdateOpts(QuestionOptParam param) {
-        try{
+        try {
             boolean flag1 = questionService.updateById(param.getQuestion());
             //由qID和idx联合主键(不能使用MP的updateById方法)，更新选项表信息
             //用接口实现类写QueryWrapper语句查询
             boolean flag2 = qOptService.addOrUpdateOpts(param.getOptionList());
-            if(flag1&&flag2){
+            if (flag1 && flag2) {
                 return R.success("题目信息更新成功");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return R.error(CodeEnum.OTHER_ERROR);
         }
@@ -90,16 +90,16 @@ public class QuestionBiz {
     }
 
     public R addOrUpdateother(QuestionOtherParam param) {
-        try{
+        try {
             boolean flag1 = questionService.updateById(param.getQuestion());
             //由qID，更新答案表信息
             boolean flag2 = qAnsService.updateById(param.getAnswer());
-            if(flag1&&flag2){
+            if (flag1 && flag2) {
                 return R.success("题目信息更新成功");
             }
-        }catch (Exception e){
+            return R.error(CodeEnum.OTHER_ERROR);
+        } catch (Exception e) {
             return R.error(CodeEnum.OTHER_ERROR);
         }
-        return R.error(CodeEnum.OTHER_ERROR);
     }
 }
