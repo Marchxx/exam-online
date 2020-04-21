@@ -3,6 +3,7 @@ package com.march.main.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.march.main.entity.User;
 import com.march.main.dao.UserMapper;
+import com.march.main.params.GetUserListParam;
 import com.march.main.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public List<User> findUserListByRId(Integer rId) {
-        QueryWrapper wrapper = new QueryWrapper();
-        wrapper.eq("role_id", rId);
-        User user = new User();
-        return user.selectList(wrapper);
+    public List<User> findUserListById(GetUserListParam param) {
+//        QueryWrapper wrapper = new QueryWrapper();
+//        wrapper.eq("role_id", rId);
+//        User user = new User();
+//        return user.selectList(wrapper);
+        return userMapper.selectListById(param);
     }
 
     @Override
@@ -69,5 +71,4 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         return userMapper.deleteBatchIds(idList);
     }
-
 }

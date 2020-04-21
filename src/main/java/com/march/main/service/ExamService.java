@@ -23,4 +23,8 @@ public interface ExamService extends IService<Exam> {
     List<Exam> findExamListByTid(Integer id,Integer flag);
 
     List<Exam> findAllExam();
+
+    boolean delExamInfo(Integer id);
+
+    boolean delExamQList(Integer id);
 }

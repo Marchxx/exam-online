@@ -25,7 +25,7 @@ public class QuestionOption extends Model<QuestionOption> {
 
     private static final long serialVersionUID=1L;
 
-    @ApiModelProperty(value = "题目id,主键")
+    @ApiModelProperty(value = "题目id,主键",hidden = true)
     @TableId(value = "question_id")
     private Integer questionId;
 

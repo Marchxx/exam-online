@@ -4,6 +4,7 @@ package com.march.main.controller;
 import com.march.main.biz.UserBiz;
 import com.march.common.utils.R;
 import com.march.main.entity.User;
+import com.march.main.params.GetUserListParam;
 import com.march.main.params.LoginParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,30 +38,30 @@ public class UserController {
         return userBiz.findUserById(id);
     }
 
+    @GetMapping("/info")
+    @ApiOperation(value = "获取当前登录用户信息")
+    public R getInfo(HttpServletRequest request) {
+        //取出经token验证后取出的id
+        String id = request.getAttribute("id").toString();
+        return userBiz.getInfo(Integer.parseInt(id));
+    }
+
     @ApiOperation(value = "查找所有用户")
-    @GetMapping("/list")
+    @GetMapping("/list/all")
     public R findUserList() {
         return userBiz.findUserList();
     }
 
-    @ApiOperation(value = "根据角色rId,查找用户列表")
-    @GetMapping("/list/{id}")
-    public R findUserListByRId(@PathVariable("id") Integer rId) {
-        return userBiz.findUserListByRId(rId);
+    @ApiOperation(value = "根据rId/uname/name,模糊查询用户列表")
+    @PostMapping("/list")
+    public R findUserListById(@RequestBody GetUserListParam param) {
+        return userBiz.findUserListById(param);
     }
 
     @PostMapping("/update")
     @ApiOperation(value = "更新用户信息,用户ID必填")
     public R updateInfoById(@RequestBody User user) {
         return userBiz.updateInfoById(user);
-    }
-
-    @GetMapping("/info")
-    @ApiOperation(value = "获取当前登录用户信息")
-    public R getInfo(HttpServletRequest request) {
-        String id = request.getAttribute("id").toString();
-        System.out.println(request.getParameter("token"));
-        return userBiz.getInfo(Integer.parseInt(id));
     }
 
     @GetMapping("/batchDelete")
@@ -72,7 +73,7 @@ public class UserController {
     //以下两个url无需拦截
     @PostMapping("/login")
     @ApiOperation(value = "根据用户名登录，登录成功返回token")
-    public R login(LoginParam loginParam) {
+    public R login(@RequestBody LoginParam loginParam) {
         return userBiz.login(loginParam);
     }
 

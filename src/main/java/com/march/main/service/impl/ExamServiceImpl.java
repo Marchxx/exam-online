@@ -38,7 +38,7 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements Ex
         List<Exam> exams = exam.selectAll();
         for (Exam e : exams) {
             User one = user.selectOne(new QueryWrapper<User>().eq("user_id", e.getExamCreatorId()));
-            e.setExamCreatorName(one.getName());
+            if(one!=null) e.setExamCreatorName(one.getName());
         }
         return exams;
     }
@@ -83,8 +83,22 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements Ex
         for (Exam e : exams) {
             //将Exam实体类中数据库不存在的exam_creator_name加上
             User one = user.selectOne(new QueryWrapper<User>().eq("user_id", id));
-            e.setExamCreatorName(one.getName());
+            if(one!=null) e.setExamCreatorName(one.getName());
         }
         return exams;
+    }
+
+    @Override
+    public boolean delExamInfo(Integer id) {
+        Exam exam=new Exam();
+        return exam.deleteById(id);
+    }
+
+    @Override
+    public boolean delExamQList(Integer id) {
+        ExamQuestion question=new ExamQuestion();
+        QueryWrapper<ExamQuestion> wrapper=new QueryWrapper<>();
+        wrapper.eq("exam_id",id);
+        return question.delete(wrapper);
     }
 }

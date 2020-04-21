@@ -44,16 +44,12 @@ public class QuestionController {
     @ApiOperation(value = "更新,选择题")
     @PostMapping("/update/opt")
     public R addOrUpdateOpts(@RequestBody QuestionOptParam param){
-        System.out.println(param.getQuestion());
-        System.out.println(param.getOptionList());
         return questionBiz.addOrUpdateOpts(param);
     }
 
     @ApiOperation(value = "更新,填空/判断题")
     @PostMapping("/update/other")
     public R addOrUpdateother(@RequestBody QuestionOtherParam param){
-        System.out.println(param.getQuestion());
-        System.out.println(param.getAnswer());
         return questionBiz.addOrUpdateother(param);
     }
 

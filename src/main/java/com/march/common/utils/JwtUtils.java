@@ -21,6 +21,7 @@ public class JwtUtils {
     /**
      * 签发Token
      * 一个JWT实际上就是一个字符串，它由三部分组成，头部(Header)、载荷(Payload)与签名(Signature)
+     *
      * @return
      */
     public static String creatJwt(User user) {
@@ -40,6 +41,7 @@ public class JwtUtils {
 
     /**
      * 验证Token
+     *
      * @param token
      * @return
      */

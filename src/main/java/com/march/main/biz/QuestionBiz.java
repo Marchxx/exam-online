@@ -3,6 +3,8 @@ package com.march.main.biz;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.march.common.enums.CodeEnum;
 import com.march.common.utils.R;
+import com.march.main.entity.QuestionAnswer;
+import com.march.main.entity.QuestionOption;
 import com.march.main.params.GetQuestListParam;
 import com.march.main.params.QuestionOptParam;
 import com.march.main.params.QuestionOtherParam;
@@ -77,7 +79,10 @@ public class QuestionBiz {
         try {
             boolean flag1 = questionService.updateById(param.getQuestion());
             //由qID和idx联合主键(不能使用MP的updateById方法)，更新选项表信息
-            //用接口实现类写QueryWrapper语句查询
+            //用接口实现类写QueryWrapper语句更新
+            for (QuestionOption option : param.getOptionList()) {
+                option.setQuestionId(param.getQuestion().getQuestionId());
+            }
             boolean flag2 = qOptService.addOrUpdateOpts(param.getOptionList());
             if (flag1 && flag2) {
                 return R.success("题目信息更新成功");
@@ -92,8 +97,11 @@ public class QuestionBiz {
     public R addOrUpdateother(QuestionOtherParam param) {
         try {
             boolean flag1 = questionService.updateById(param.getQuestion());
-            //由qID，更新答案表信息
-            boolean flag2 = qAnsService.updateById(param.getAnswer());
+            //根据param字段,创建answer对象(qId,answer)
+            QuestionAnswer answer=new QuestionAnswer();
+            answer.setQuestionId(param.getQuestion().getQuestionId());
+            answer.setAnswer(param.getAnswer());
+            boolean flag2 = qAnsService.updateById(answer);
             if (flag1 && flag2) {
                 return R.success("题目信息更新成功");
             }

@@ -3,6 +3,7 @@ package com.march.main.params;
 import com.march.main.entity.Exam;
 import com.march.main.entity.ExamQuestion;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import java.util.List;
 
@@ -10,8 +11,9 @@ import java.util.List;
 @ApiModel(value = "新建试卷参数")
 public class ExamParam {
 
-    //试卷实体类
+    @ApiModelProperty(value = "试卷基本信息")
     Exam exam;
-    //题目列表
+
+    @ApiModelProperty(value = "题目列表")
     List<ExamQuestion> questionList;
 }

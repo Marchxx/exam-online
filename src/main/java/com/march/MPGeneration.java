@@ -13,7 +13,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
  * @author: tangcan
  * @create: 2018-11-27 15:08
  **/
-public class MPGeneration {
+ public class MPGeneration {
 
     public static void main(String[] args) {
         // 代码生成路径

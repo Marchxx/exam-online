@@ -1,6 +1,9 @@
 package com.march;
 
+import com.alibaba.excel.EasyExcelFactory;
+import com.alibaba.excel.ExcelWriter;
 import com.march.common.enums.CodeEnum;
+import com.march.common.office.Excel;
 import com.march.common.utils.JwtUtils;
 import com.march.common.utils.R;
 import com.march.main.dao.ClassMapper;
@@ -16,11 +19,18 @@ import com.march.main.service.*;
 import com.march.main.vo.ClassStuVo;
 import com.march.main.vo.QuestionAnswerVo;
 import com.march.main.vo.QuestionOptionVo;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellAddress;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.PaneInformation;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.util.*;
 
 @SpringBootTest
 class ExamOnlineApplicationTests {
@@ -45,10 +55,24 @@ class ExamOnlineApplicationTests {
     }
 
     @Test
-    void testJwt() {
-        User user = userService.getByAccount("admin");
+    void testCreatJwt() {
+        User user = userService.getByAccount("5120164179");
         System.out.println(user);
         String jwt = JwtUtils.creatJwt(user);
+        System.out.println(jwt);
+        System.out.println(JwtUtils.checkJWT(jwt));
+
+        User user1 = userService.getByAccount("5120164179");
+        System.out.println(user1);
+        String jwt1 = JwtUtils.creatJwt(user);
+        System.out.println(jwt1);
+        System.out.println(JwtUtils.checkJWT(jwt1));
+    }
+
+    @Test
+    void testCheckJwt() {
+        System.out.println(new Date(System.currentTimeMillis()));
+        String jwt = "";
         System.out.println(jwt);
         System.out.println(JwtUtils.checkJWT(jwt));
     }
@@ -86,5 +110,16 @@ class ExamOnlineApplicationTests {
         System.out.println(question.getId());
         boolean insert = question.insert();
         System.out.println(question.getId());
+    }
+
+    @Test
+    void testExcel(){
+        try {
+            OutputStream outputStream=new FileOutputStream("D:\\Temp\\test.xlsx");
+            ExcelWriter writer= EasyExcelFactory.getWriter(outputStream);
+            //Sheet sheet= new Sheet(1, 0, Excel.class);
+        }catch (Exception e){
+
+        }
     }
 }

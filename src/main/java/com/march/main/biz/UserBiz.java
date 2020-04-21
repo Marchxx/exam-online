@@ -5,6 +5,7 @@ import com.march.common.utils.JwtUtils;
 import com.march.common.utils.MD5Utils;
 import com.march.main.entity.User;
 import com.march.common.enums.CodeEnum;
+import com.march.main.params.GetUserListParam;
 import com.march.main.params.LoginParam;
 import com.march.main.service.UserService;
 import com.march.common.utils.R;
@@ -32,11 +33,13 @@ public class UserBiz {
         return R.success().put("data", userList);
     }
 
-    public R findUserListByRId(Integer rId) {
+    public R findUserListById(GetUserListParam param) {
+        int rId = param.getRoleId();
         if (rId == 1 || rId == 2 || rId == 3) {
-            List<User> userList = userService.findUserListByRId(rId);
+            List<User> userList = userService.findUserListById(param);
             return R.success().put("data", userList);
         }
+        //返回传参错误
         return R.error(CodeEnum.PARAM_ERROR);
     }
 
@@ -89,5 +92,4 @@ public class UserBiz {
             return R.success("人员批量删除成功");
         return R.error(CodeEnum.OTHER_ERROR);
     }
-
 }

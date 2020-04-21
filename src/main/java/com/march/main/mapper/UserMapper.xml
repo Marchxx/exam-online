@@ -4,15 +4,33 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.march.main.entity.User">
-        <id column="user_id" property="userId" />
-        <result column="user_name" property="userName" />
-        <result column="password" property="password" />
-        <result column="name" property="name" />
-        <result column="email" property="email" />
-        <result column="phone" property="phone" />
-        <result column="role_id" property="roleId" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
+        <id column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="password" property="password"/>
+        <result column="name" property="name"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
+        <result column="role_id" property="roleId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
     </resultMap>
+
+    <select id="selectListById" resultType="com.march.main.entity.User">
+        SELECT
+        *
+        FROM
+        `user`
+        <where>
+            <if test="roleId!=null">
+                and role_id=#{roleId}
+            </if>
+            <if test="userName!=null">
+                and user_name like concat('%',#{userName},'%')
+            </if>
+            <if test="name!=null">
+                and name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
 
 </mapper>

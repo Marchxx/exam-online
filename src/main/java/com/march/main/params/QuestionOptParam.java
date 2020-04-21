@@ -4,6 +4,7 @@ import com.march.main.entity.Question;
 import com.march.main.entity.QuestionAnswer;
 import com.march.main.entity.QuestionOption;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.List;
@@ -12,8 +13,9 @@ import java.util.List;
 @ApiModel(value = "选择题参数")
 public class QuestionOptParam {
 
-    //问题实体类
+    @ApiModelProperty(value = "问题基本信息")
     Question question;
-    //选项实体类 列表
+
+    @ApiModelProperty(value = "选项列表")
     List<QuestionOption> optionList;
 }

@@ -2,6 +2,7 @@ package com.march.main.service;
 
 import com.march.main.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.march.main.params.GetUserListParam;
 
 import java.util.List;
 
@@ -25,5 +26,5 @@ public interface UserService extends IService<User> {
 
     int batchDeleteUserByIds(Integer[] ids);
 
-    List<User> findUserListByRId(Integer rId);
+    List<User> findUserListById(GetUserListParam param);
 }

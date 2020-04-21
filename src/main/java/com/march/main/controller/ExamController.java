@@ -5,10 +5,12 @@ package com.march.main.controller;
 import com.march.common.utils.R;
 import com.march.main.biz.ExamBiz;
 import com.march.main.entity.Exam;
+import com.march.main.entity.ExamQuestion;
 import com.march.main.params.ExamParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -45,7 +47,19 @@ public class ExamController {
         return examBiz.findAllExam();
     }
 
-    @ApiOperation(value = "新建考试信息,时间格式yyyy-MM-dd HH:mm:ss(examId不用填)")
+    @ApiOperation(value = "根据eId,删除考试信息")
+    @GetMapping("/delete/{id}")
+    public R delExamInfo(@PathVariable("id") Integer id){
+        return examBiz.delExamDetail(id);
+    }
+
+    @ApiOperation(value = "更新考试,时间格式yyyy-MM-dd HH:mm:ss(examId必填)")
+    @PostMapping("/update")
+    public R updateExamDetail(@RequestBody ExamParam examParam){
+        return examBiz.updateExamDetail(examParam);
+    }
+
+    @ApiOperation(value = "新建考试,时间格式yyyy-MM-dd HH:mm:ss(examId不用填)")
     @PostMapping("/add")
     public R addExam(@RequestBody ExamParam examParam){
         System.out.println(examParam);

@@ -13,14 +13,15 @@ public class MyMvcConfig implements WebMvcConfigurer {
     //注册拦截器
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        //添加的页面都会经过拦截器，并将对应参数放到请求中
-        registry.addInterceptor(new LoginHandlerInterceptor())
-                .addPathPatterns("/user/**")
-                .addPathPatterns("/exam/**")
-                .addPathPatterns("/question/**")
-                .addPathPatterns("/exam/**")
-                .excludePathPatterns("/user/login").excludePathPatterns("/user/register");
+//        //添加的页面都会经过拦截器，并将对应参数放到请求中
+//        registry.addInterceptor(new LoginHandlerInterceptor())
+//                .addPathPatterns("/user/**")
+//                .addPathPatterns("/exam/**")
+//                .addPathPatterns("/question/**")
+//                .addPathPatterns("/exam/**")
+//                .excludePathPatterns("/user/login").excludePathPatterns("/user/register");
     }
+
 
     //视图映射
     @Override
