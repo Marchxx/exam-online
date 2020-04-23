@@ -5,7 +5,12 @@ import com.march.main.dao.QuestionAnswerMapper;
 import com.march.main.dao.QuestionOptionMapper;
 import com.march.main.entity.Question;
 import com.march.main.dao.QuestionMapper;
+import com.march.main.entity.QuestionAnswer;
+import com.march.main.entity.QuestionOption;
 import com.march.main.params.GetQuestListParam;
+import com.march.main.params.QuestionOptParam;
+import com.march.main.params.QuestionOtherParam;
+import com.march.main.service.QuestionOptionService;
 import com.march.main.service.QuestionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.march.main.vo.OptionContentVo;
@@ -37,6 +42,9 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     @Autowired
     QuestionAnswerMapper questionAnswerMapper;
 
+    @Autowired
+    QuestionOptionService qOptService;
+
     @Override
     public List<OptionContentVo> getOptionDetailById(Integer id) {
         return questionMapper.getOptionDetailById(id);
@@ -51,9 +59,9 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         }
         int batchIds = questionMapper.deleteBatchIds(list);
         //删除，问题选项表的记录
-        QueryWrapper wrapper=new QueryWrapper();
         for (Integer id : ids) {
-            wrapper.eq("question_id",id);
+            QueryWrapper wrapper = new QueryWrapper();
+            wrapper.eq("question_id", id);
             System.out.println(wrapper);
             int i = questionOptionMapper.delete(wrapper);
         }
@@ -69,9 +77,9 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         }
         int batchIds = questionMapper.deleteBatchIds(list);
         //删除，问题答案表的记录
-        QueryWrapper wrapper=new QueryWrapper();
         for (Integer id : ids) {
-            wrapper.eq("question_id",id);
+            QueryWrapper wrapper = new QueryWrapper();
+            wrapper.eq("question_id", id);
             System.out.println(wrapper);
             int i = questionAnswerMapper.delete(wrapper);
         }
@@ -86,5 +94,64 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     @Override
     public List<QuestionAnswerVo> getOthersListById(GetQuestListParam param) {
         return questionMapper.getOthersListById(param);
+    }
+
+    @Override
+    public Question getQuestionById(Integer id) {
+        Question question = new Question();
+        question.setQuestionId(id);
+        return question.selectById();
+    }
+
+    @Override
+    public boolean addOther(QuestionOtherParam param) {
+        boolean insert1 = param.getQuestion().insert();
+        //insert后会自动保存自增的id值，再根据param字段,创建answer对象(qId,answer)
+        QuestionAnswer answer = new QuestionAnswer();
+        answer.setQuestionId(param.getQuestion().getQuestionId());
+        answer.setAnswer(param.getAnswer());
+        boolean insert2 = answer.insert();
+        if (insert1 && insert2)
+            return true;
+        return false;
+    }
+
+    @Override
+    public boolean updateOther(QuestionOtherParam param) {
+        boolean update1 = param.getQuestion().updateById();
+        //根据param字段,创建answer对象(qId,answer)
+        QuestionAnswer answer = new QuestionAnswer();
+        answer.setQuestionId(param.getQuestion().getQuestionId());
+        answer.setAnswer(param.getAnswer());
+        boolean update2 = answer.updateById();
+        if (update1 && update2)
+            return true;
+        return false;
+    }
+
+    @Override
+    public boolean updateOpts(QuestionOptParam param) {
+        boolean update1 = param.getQuestion().updateById();
+        //根据param字段,创建option对象(qId,idx,content,answer)
+        for (QuestionOption option : param.getOptionList()) {
+            option.setQuestionId(param.getQuestion().getQuestionId());
+        }
+        boolean update2 = qOptService.UpdateOpts(param.getOptionList());
+        if (update1 && update2)
+            return true;
+        return false;
+    }
+
+    @Override
+    public boolean addOpts(QuestionOptParam param) {
+        boolean insert1 = param.getQuestion().insert();
+        //insert后会自动保存自增的id值，再根据param字段,创建option对象(qId,idx,content,answer)
+        for (QuestionOption option : param.getOptionList()) {
+            option.setQuestionId(param.getQuestion().getQuestionId());
+        }
+        boolean insert2 = qOptService.addOpts(param.getOptionList());
+        if (insert1 && insert2)
+            return true;
+        return false;
     }
 }

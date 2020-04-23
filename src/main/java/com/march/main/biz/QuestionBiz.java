@@ -3,6 +3,7 @@ package com.march.main.biz;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.march.common.enums.CodeEnum;
 import com.march.common.utils.R;
+import com.march.main.entity.Question;
 import com.march.main.entity.QuestionAnswer;
 import com.march.main.entity.QuestionOption;
 import com.march.main.params.GetQuestListParam;
@@ -31,24 +32,13 @@ public class QuestionBiz {
     @Autowired
     QuestionAnswerService qAnsService;
 
+
     public R getOptionById(Integer id) {
         //获取选项具体内容
         List<OptionContentVo> voList = questionService.getOptionDetailById(id);
         if (!voList.isEmpty()) {
             return R.success().put("data", voList);
         }
-        return R.error(CodeEnum.OTHER_ERROR);
-    }
-
-    public R delOptByIds(Integer[] ids) {
-        if (questionService.delOptByIds(ids) == ids.length)
-            return R.success("题目批量删除成功");
-        return R.error(CodeEnum.OTHER_ERROR);
-    }
-
-    public R delOtherByIds(Integer[] ids) {
-        if (questionService.delOtherByIds(ids) == ids.length)
-            return R.success("题目批量删除成功");
         return R.error(CodeEnum.OTHER_ERROR);
     }
 
@@ -75,38 +65,50 @@ public class QuestionBiz {
         return R.error(CodeEnum.PARAM_ERROR);
     }
 
+    public R delOptByIds(Integer[] ids) {
+        if (questionService.delOptByIds(ids) == ids.length)
+            return R.success("题目批量删除成功");
+        return R.error(CodeEnum.OTHER_ERROR);
+    }
+
+    public R delOtherByIds(Integer[] ids) {
+        if (questionService.delOtherByIds(ids) == ids.length)
+            return R.success("题目批量删除成功");
+        return R.error(CodeEnum.OTHER_ERROR);
+    }
+
     public R addOrUpdateOpts(QuestionOptParam param) {
         try {
-            boolean flag1 = questionService.updateById(param.getQuestion());
-            //由qID和idx联合主键(不能使用MP的updateById方法)，更新选项表信息
-            //用接口实现类写QueryWrapper语句更新
-            for (QuestionOption option : param.getOptionList()) {
-                option.setQuestionId(param.getQuestion().getQuestionId());
+            //根据qId查询是否存在该试题
+            Integer qId = param.getQuestion().getQuestionId();
+            if (qId != null && questionService.getQuestionById(qId) != null) {
+                if (questionService.updateOpts(param))
+                    return R.success("题目信息更新成功");
+            } else {
+                if (questionService.addOpts(param))
+                    return R.success("题目信息新建成功");
             }
-            boolean flag2 = qOptService.addOrUpdateOpts(param.getOptionList());
-            if (flag1 && flag2) {
-                return R.success("题目信息更新成功");
-            }
+            return R.error(CodeEnum.OTHER_ERROR);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return R.error(CodeEnum.OTHER_ERROR);
         }
-        return R.error(CodeEnum.OTHER_ERROR);
     }
 
-    public R addOrUpdateother(QuestionOtherParam param) {
+    public R addOrUpdateOther(QuestionOtherParam param) {
         try {
-            boolean flag1 = questionService.updateById(param.getQuestion());
-            //根据param字段,创建answer对象(qId,answer)
-            QuestionAnswer answer=new QuestionAnswer();
-            answer.setQuestionId(param.getQuestion().getQuestionId());
-            answer.setAnswer(param.getAnswer());
-            boolean flag2 = qAnsService.updateById(answer);
-            if (flag1 && flag2) {
-                return R.success("题目信息更新成功");
+            //根据qId查询是否存在该试题
+            Integer qId = param.getQuestion().getQuestionId();
+            if (qId != null && questionService.getQuestionById(qId) != null) {
+                if (questionService.updateOther(param))
+                    return R.success("题目信息更新成功");
+            } else {
+                if (questionService.addOther(param))
+                    return R.success("题目信息新建成功");
             }
             return R.error(CodeEnum.OTHER_ERROR);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return R.error(CodeEnum.OTHER_ERROR);
         }
     }

@@ -22,13 +22,23 @@ import java.util.List;
 public class QuestionOptionServiceImpl extends ServiceImpl<QuestionOptionMapper, QuestionOption> implements QuestionOptionService {
 
     @Override
-    public boolean addOrUpdateOpts(List<QuestionOption> optionList) {
+    public boolean UpdateOpts(List<QuestionOption> optionList) {
         for (QuestionOption option : optionList) {
-            //QueryWrapper必须加上实体类
-            //每次取出list中的option，匹配联合主键的条件，更新数据库对象
             QueryWrapper<QuestionOption> wrapper = new QueryWrapper<>();
             wrapper.eq("question_id", option.getQuestionId()).eq("idx", option.getIdx());
             boolean flag = option.update(wrapper);
+            if (!flag)
+                return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean addOpts(List<QuestionOption> optionList) {
+        for (QuestionOption option : optionList) {
+            QueryWrapper<QuestionOption> wrapper = new QueryWrapper<>();
+            wrapper.eq("question_id", option.getQuestionId()).eq("idx", option.getIdx());
+            boolean flag = option.insert();
             if (!flag)
                 return false;
         }

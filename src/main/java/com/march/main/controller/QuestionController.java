@@ -41,16 +41,16 @@ public class QuestionController {
         return questionBiz.getOptionById(id);
     }
 
-    @ApiOperation(value = "更新,选择题")
-    @PostMapping("/update/opt")
+    @ApiOperation(value = "新建更新,选择题")
+    @PostMapping("/addOrUpdate/opt")
     public R addOrUpdateOpts(@RequestBody QuestionOptParam param){
         return questionBiz.addOrUpdateOpts(param);
     }
 
-    @ApiOperation(value = "更新,填空/判断题")
-    @PostMapping("/update/other")
-    public R addOrUpdateother(@RequestBody QuestionOtherParam param){
-        return questionBiz.addOrUpdateother(param);
+    @ApiOperation(value = "新建更新,填空/判断题")
+    @PostMapping("/addOrUpdate/other")
+    public R addOrUpdateOther(@RequestBody QuestionOtherParam param){
+        return questionBiz.addOrUpdateOther(param);
     }
 
     @ApiOperation(value = "批量删除,选择题")

@@ -15,5 +15,7 @@ import java.util.List;
  */
 public interface QuestionOptionService extends IService<QuestionOption> {
 
-    boolean addOrUpdateOpts(List<QuestionOption> optionList);
+    boolean addOpts(List<QuestionOption> optionList);
+
+    boolean UpdateOpts(List<QuestionOption> optionList);
 }
