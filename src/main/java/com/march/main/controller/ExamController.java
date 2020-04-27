@@ -4,13 +4,11 @@ package com.march.main.controller;
 
 import com.march.common.utils.R;
 import com.march.main.biz.ExamBiz;
-import com.march.main.entity.Exam;
-import com.march.main.entity.ExamQuestion;
-import com.march.main.params.ExamParam;
+import com.march.main.params.AddExamParam;
+import com.march.main.params.SubmitExamParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -23,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/exam")
-@Api(tags = "考试管理模块")
+@Api(tags = "考试模块")
 public class ExamController {
 
     @Autowired
@@ -50,21 +48,33 @@ public class ExamController {
     @ApiOperation(value = "根据eId,删除考试信息")
     @GetMapping("/delete/{id}")
     public R delExamInfo(@PathVariable("id") Integer id){
-        return examBiz.delExamDetail(id);
+        return examBiz.delExamInfo(id);
     }
 
     @ApiOperation(value = "更新考试,时间格式yyyy-MM-dd HH:mm:ss(examId必填)")
     @PostMapping("/update")
-    public R updateExamDetail(@RequestBody ExamParam examParam){
-        return examBiz.updateExamDetail(examParam);
+    public R updateExamInfo(@RequestBody AddExamParam addExamParam){
+        return examBiz.updateExamInfo(addExamParam);
     }
 
     @ApiOperation(value = "新建考试,时间格式yyyy-MM-dd HH:mm:ss(examId不用填)")
     @PostMapping("/add")
-    public R addExam(@RequestBody ExamParam examParam){
-        System.out.println(examParam);
-        return examBiz.addExam(examParam);
+    public R addExam(@RequestBody AddExamParam addExamParam){
+        System.out.println(addExamParam);
+        return examBiz.addExam(addExamParam);
     }
 
+    @ApiOperation(value = "开始考试,获取试卷")
+    @GetMapping("/start/{id}")
+    public R getExamDetailById(@PathVariable("id") Integer id){
+        return examBiz.getExamDetailById(id);
+    }
+
+    @ApiOperation(value = "结束考试,提交试卷")
+    @PostMapping("/submit")
+    public R submitExam(@RequestBody SubmitExamParam param){
+        System.out.println(param);
+        return examBiz.submitExam(param);
+    }
 }
 

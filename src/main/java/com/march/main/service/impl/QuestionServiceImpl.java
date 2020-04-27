@@ -45,6 +45,23 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     @Autowired
     QuestionOptionService qOptService;
 
+    //查询填空/判断答案
+    @Override
+    public String getOthersAnswerById(Integer id) {
+        QuestionAnswer qa = new QuestionAnswer();
+        qa.setQuestionId(id);
+        return qa.selectById().getAnswer();
+    }
+
+    //查询选择题答案
+    @Override
+    public List<Integer> getOptAnswerById(Integer id) {
+        QuestionOption qo = new QuestionOption();
+        List<Integer> voList = questionMapper.getOptAnswerById(id);
+        return voList;
+    }
+
+    //返回选项题干
     @Override
     public List<OptionContentVo> getOptionDetailById(Integer id) {
         return questionMapper.getOptionDetailById(id);

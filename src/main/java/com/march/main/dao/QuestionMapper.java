@@ -20,9 +20,12 @@ import java.util.List;
  */
 public interface QuestionMapper extends BaseMapper<Question> {
 
+    List<Integer> getOptAnswerById(Integer id);
+
     List<OptionContentVo> getOptionDetailById(Integer id);
 
     List<QuestionOptionVo> getOpsListById(GetQuestListParam param);
 
     List<QuestionAnswerVo> getOthersListById(GetQuestListParam param);
+
 }

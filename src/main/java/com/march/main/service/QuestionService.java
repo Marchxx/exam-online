@@ -21,7 +21,13 @@ import java.util.List;
  */
 public interface QuestionService extends IService<Question> {
 
+    String getOthersAnswerById(Integer id);
+
+    List<Integer> getOptAnswerById(Integer id);
+
     List<OptionContentVo> getOptionDetailById(Integer id);
+
+    Question getQuestionById(Integer id);
 
     int delOptByIds(Integer[] ids);
 
@@ -30,8 +36,6 @@ public interface QuestionService extends IService<Question> {
     List<QuestionOptionVo> getOpsListById(GetQuestListParam param);
 
     List<QuestionAnswerVo> getOthersListById(GetQuestListParam param);
-
-    Question getQuestionById(Integer id);
 
     boolean addOther(QuestionOtherParam param);
 

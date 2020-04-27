@@ -1,0 +1,20 @@
+spring:
+  profiles: dev
+  #Mysql
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/exam_online?serverTimezone=Asia/Shanghai
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  #redis
+  redis:
+    host: 118.178.253.94
+server:
+  port: 8088
+#  Swagger2
+swagger:
+  enable: true
+# 打印Sql日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

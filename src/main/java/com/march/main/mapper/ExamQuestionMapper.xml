@@ -9,4 +9,17 @@
         <result column="question_id" property="questionId" />
     </resultMap>
 
+    <select id="sortByTypeId" resultType="java.lang.Integer">
+SELECT
+	q.question_id
+FROM
+	exam_question eq
+LEFT JOIN question q ON eq.question_id = q.question_id
+WHERE
+	eq.exam_id = #{id}
+AND q.question_type_id = #{i}
+ORDER BY
+	eq.id
+    </select>
+
 </mapper>

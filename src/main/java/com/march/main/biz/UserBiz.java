@@ -34,6 +34,7 @@ public class UserBiz {
     }
 
     public R findUserListById(GetUserListParam param) {
+        System.out.println("param" + param);
         int rId = param.getRoleId();
         if (rId == 1 || rId == 2 || rId == 3) {
             List<User> userList = userService.findUserListById(param);

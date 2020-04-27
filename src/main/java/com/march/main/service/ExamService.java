@@ -2,9 +2,13 @@ package com.march.main.service;
 
 import com.march.main.entity.Exam;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.march.main.params.ExamParam;
+import com.march.main.params.AddExamParam;
+import com.march.main.params.SubmitExamParam;
+import com.march.main.vo.ExamQuestionOpts;
+import com.march.main.vo.ExamQuestionOthers;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -18,7 +22,7 @@ public interface ExamService extends IService<Exam> {
 
     Exam findExamById(Integer id);
 
-    boolean addExam(ExamParam examParam);
+    boolean addExam(AddExamParam addExamParam);
 
     List<Exam> findExamListByTid(Integer id,Integer flag);
 
@@ -27,4 +31,12 @@ public interface ExamService extends IService<Exam> {
     boolean delExamInfo(Integer id);
 
     boolean delExamQList(Integer id);
+
+    Map<String, List<Integer>> sortByTypeId(Integer id);
+
+    List<ExamQuestionOpts> getQuestionOpts(List<Integer> integers);
+
+    List<ExamQuestionOthers> getQuestionOthers(List<Integer> integers);
+
+    int judgeAndSaveAns(SubmitExamParam param);
 }

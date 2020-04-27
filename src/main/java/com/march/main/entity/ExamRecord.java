@@ -26,7 +26,7 @@ public class ExamRecord extends Model<ExamRecord> {
 
     private static final long serialVersionUID=1L;
 
-    @ApiModelProperty(value = "流水号考试记录id,主键,自增")
+    @ApiModelProperty(value = "流水号考试记录id,主键,自增",hidden = true)
     @TableId(value = "record_id", type = IdType.AUTO)
     private Integer recordId;
 
@@ -39,7 +39,7 @@ public class ExamRecord extends Model<ExamRecord> {
     @ApiModelProperty(value = "考试花费时间")
     private Integer examTimeCost;
 
-    @ApiModelProperty(value = "考试总分")
+    @ApiModelProperty(value = "考试总分",hidden = true)
     private Integer examScore;
 
 

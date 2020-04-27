@@ -24,7 +24,7 @@ public class RecordAnswer extends Model<RecordAnswer> {
 
     private static final long serialVersionUID=1L;
 
-    @ApiModelProperty(value = "某学生某考试记录id,主键")
+    @ApiModelProperty(value = "某学生某考试记录id,主键",hidden = true)
     private Integer recordId;
 
     @ApiModelProperty(value = "考试记录对应的题目id,主键")

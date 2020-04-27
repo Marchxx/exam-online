@@ -5,6 +5,7 @@ import com.march.common.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
 import io.swagger.models.auth.In;
 import net.sf.json.JSONObject;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -12,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 登录检查
@@ -21,9 +25,14 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     //目标方法执行之前
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        //同一浏览器环境只会检测一次
+        if ("OPTIONS".equals(request.getMethod().toUpperCase())) {
+            System.out.println("检测到Option预检请求,放行");
+            return true;
+        }
         System.out.println("进入拦截器..." + request.getRequestURI());
         //从Http请求头中获取 (Access-Token-xxx)
-        String token = request.getHeader("Access-Token");
+        String token = request.getHeader("AccessToken");
         if (token == null)
             //若为空，则从请求参数中获取，(token-xxx)
             token = request.getParameter("token");

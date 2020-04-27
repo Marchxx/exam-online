@@ -38,7 +38,7 @@ public class Swagger2 {
     public Docket createRestApi() {
         //注入登录验证参数
         ParameterBuilder parameterBuilder=new ParameterBuilder();
-        parameterBuilder.name("Access-Token").description("接口权限认证")
+        parameterBuilder.name("AccessToken").description("接口权限认证")
                 .modelRef(new ModelRef("string")).parameterType("header")
                 //header中的ticket参数非必填，传空也可以
                 .required(false).build();

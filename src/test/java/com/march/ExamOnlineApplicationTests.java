@@ -114,12 +114,12 @@ class ExamOnlineApplicationTests {
 
     @Test
     void testExcel(){
-        try {
-            OutputStream outputStream=new FileOutputStream("D:\\Temp\\test.xlsx");
-            ExcelWriter writer= EasyExcelFactory.getWriter(outputStream);
-            //Sheet sheet= new Sheet(1, 0, Excel.class);
-        }catch (Exception e){
+    }
 
-        }
+    @Test
+    void testExamMap(){
+        Map<String, List<Integer>> map = examService.sortByTypeId(1);
+        List<Integer> list = map.get("1");
+        System.out.println(list);
     }
 }

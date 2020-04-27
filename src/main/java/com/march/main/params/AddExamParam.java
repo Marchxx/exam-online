@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @ApiModel(value = "新建试卷参数")
-public class ExamParam {
+public class AddExamParam {
 
     @ApiModelProperty(value = "试卷基本信息")
     Exam exam;

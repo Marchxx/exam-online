@@ -18,7 +18,8 @@ public enum CodeEnum {
     LOGIN_FAILED(1002, "密码错误"),
     PARAM_ERROR(1003,"参数不正确"),
     USER_NOT_EXIST(1004,"用户不存在"),
-    USER_ALREADY_EXIST(1005,"用户已存在");
+    USER_ALREADY_EXIST(1005,"用户已存在"),
+    EXAM_NOT_EXIST(1006,"试卷不存在");
 
 
 
