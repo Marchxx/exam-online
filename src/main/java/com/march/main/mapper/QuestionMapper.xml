@@ -17,7 +17,7 @@ SELECT
 FROM
 	question_option qo
 WHERE
-	qo.question_id = 5
+	qo.question_id = #{id}
 AND qo.answer = 1
 ORDER BY
 	qo.idx

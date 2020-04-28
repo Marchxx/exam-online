@@ -5,11 +5,13 @@ import com.march.common.enums.CodeEnum;
 import com.march.common.utils.R;
 import com.march.main.entity.Question;
 import com.march.main.entity.QuestionAnswer;
+import com.march.main.entity.QuestionCategory;
 import com.march.main.entity.QuestionOption;
 import com.march.main.params.GetQuestListParam;
 import com.march.main.params.QuestionOptParam;
 import com.march.main.params.QuestionOtherParam;
 import com.march.main.service.QuestionAnswerService;
+import com.march.main.service.QuestionCategoryService;
 import com.march.main.service.QuestionOptionService;
 import com.march.main.service.QuestionService;
 import com.march.main.vo.OptionContentVo;
@@ -32,6 +34,8 @@ public class QuestionBiz {
     @Autowired
     QuestionAnswerService qAnsService;
 
+    @Autowired
+    QuestionCategoryService qCategoryService;
 
     public R getOptionById(Integer id) {
         //获取选项具体内容
@@ -77,6 +81,12 @@ public class QuestionBiz {
         return R.error(CodeEnum.OTHER_ERROR);
     }
 
+    public R delQcategoryByIds(Integer[] ids) {
+        if (qCategoryService.delQcategoryByIds(ids) == ids.length)
+            return R.success("考试科目种类批量删除成功");
+        return R.error(CodeEnum.OTHER_ERROR);
+    }
+
     public R addOrUpdateOpts(QuestionOptParam param) {
         try {
             //根据qId查询是否存在该试题
@@ -111,5 +121,17 @@ public class QuestionBiz {
             System.out.println(e.getMessage());
             return R.error(CodeEnum.OTHER_ERROR);
         }
+    }
+
+    public R getAllCategory() {
+        List<QuestionCategory> voList = qCategoryService.getAllCategory();
+        return R.success().put("data", voList);
+    }
+
+    public R addOrUpdateQcategory(QuestionCategory questionCategory) {
+        boolean flag = qCategoryService.addOrUpdateQcategory(questionCategory);
+        if (flag)
+            return R.success("考试科目类型信息更新成功!");
+        return R.error(CodeEnum.OTHER_ERROR);
     }
 }

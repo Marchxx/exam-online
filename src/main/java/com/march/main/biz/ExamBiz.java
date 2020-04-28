@@ -103,6 +103,11 @@ public class ExamBiz {
         return R.error(CodeEnum.OTHER_ERROR);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public R getExamDetailById(Integer id) {
         //创建ExamVo返回对象
         ExamDetailVo detailVo = new ExamDetailVo();

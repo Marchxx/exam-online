@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: test
 mybatis-plus:
   configuration:
     #  开启驼峰映射

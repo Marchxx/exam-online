@@ -23,7 +23,7 @@ public class SubmitExamParam {
     private List<RecordOption> radiosAnsList;
 
     @ApiModelProperty(value = "多选题答案列表")
-    private List<RecordOption> multiplesAnsList;
+    private List<MultipleParam> multiplesAnsList;
 
     @ApiModelProperty(value = "判断题答案列表")
     private List<RecordAnswer> judgesAnsList;

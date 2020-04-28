@@ -1,10 +1,12 @@
 package com.march.main.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.march.common.utils.R;
 import com.march.main.dao.ExamQuestionMapper;
 import com.march.main.entity.*;
 import com.march.main.dao.ExamMapper;
 import com.march.main.params.AddExamParam;
+import com.march.main.params.MultipleParam;
 import com.march.main.params.SubmitExamParam;
 import com.march.main.service.ExamService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -188,6 +190,7 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements Ex
 
     /**
      * 1.判断试题是否正确，计算总分 2.保存学生答案记录
+     *
      * @param param
      * @return
      */
@@ -196,18 +199,69 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements Ex
         //获取自增长生成的主键roleId
         int autoKey = param.getExamRecord().getRecordId();
         int score = 0;
+        //处理单选题
         for (RecordOption option : param.getRadiosAnsList()) {
             option.setRecordId(autoKey);
+            option.insert();
+            if (questionService.checkOptAnswer(option.getQuestionId(), option.getIdx().toString())) {
+                //答案正确,查出问题得分
+                Question question = questionService.getQuestionById(option.getQuestionId());
+                score += question.getQuestionScore();
+            }
         }
-        for (RecordOption option : param.getMultiplesAnsList()) {
-            option.setRecordId(autoKey);
+        //处理多选题
+        for (MultipleParam multipleParam : param.getMultiplesAnsList()) {
+            //设置插入记录对象
+            RecordOption recordOption = new RecordOption();
+            recordOption.setRecordId(autoKey);
+            recordOption.setQuestionId(multipleParam.getQuestionId());
+            StringBuffer sb = new StringBuffer();
+            if (multipleParam.getIdx1() == 1) {
+                recordOption.setIdx(1);
+                recordOption.insert();
+                sb.append(String.valueOf(1));
+            }
+            if (multipleParam.getIdx2() == 1) {
+                recordOption.setIdx(2);
+                recordOption.insert();
+                sb.append(String.valueOf(2));
+            }
+            if (multipleParam.getIdx3() == 1) {
+                recordOption.setIdx(3);
+                recordOption.insert();
+                sb.append(String.valueOf(3));
+            }
+            if (multipleParam.getIdx4() == 1) {
+                recordOption.setIdx(4);
+                recordOption.insert();
+                sb.append(String.valueOf(4));
+            }
+            //拼接多选题答案
+            if (questionService.checkOptAnswer(multipleParam.getQuestionId(), sb.toString())) {
+                //答案正确,查出问题得分
+                Question question = questionService.getQuestionById(multipleParam.getQuestionId());
+                score += question.getQuestionScore();
+            }
         }
+        //处理判断题
         for (RecordAnswer answer : param.getJudgesAnsList()) {
             answer.setRecordId(autoKey);
+            answer.insert();
+            if (questionService.checkOthersAnswer(answer.getQuestionId(), answer.getAnswer())) {
+                Question question = questionService.getQuestionById(answer.getQuestionId());
+                score += question.getQuestionScore();
+            }
         }
+        //处理填空题
         for (RecordAnswer answer : param.getFillBlanksList()) {
             answer.setRecordId(autoKey);
+            answer.insert();
+            if (questionService.checkOthersAnswer(answer.getQuestionId(), answer.getAnswer())) {
+                Question question = questionService.getQuestionById(answer.getQuestionId());
+                score += question.getQuestionScore();
+            }
         }
+        System.out.println("score=" + score);
         return score;
     }
 }
