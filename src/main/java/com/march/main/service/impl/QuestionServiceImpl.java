@@ -45,16 +45,6 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     @Autowired
     QuestionOptionService qOptService;
 
-    //检验 填空/判断答案
-    @Override
-    public boolean checkOthersAnswer(Integer qId, String ans) {
-        QuestionAnswer qa = new QuestionAnswer();
-        qa.setQuestionId(qId);
-        if (qa.selectById().getAnswer().equals(ans))
-            return true;
-        return false;
-    }
-
     //检验 选择题答案(字符串拼接)
     @Override
     public boolean checkOptAnswer(Integer qId, String ans) {
@@ -69,10 +59,18 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         return false;
     }
 
-    //返回选项题干
+    //返回 选项题干
     @Override
     public List<OptionContentVo> getOptionDetailById(Integer id) {
         return questionMapper.getOptionDetailById(id);
+    }
+
+    //返回 填空/判断答案
+    @Override
+    public String getOthersAnswer(Integer id) {
+        QuestionAnswer qa = new QuestionAnswer();
+        qa.setQuestionId(id);
+        return qa.selectById().getAnswer();
     }
 
     @Override

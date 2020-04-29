@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author March
@@ -24,7 +24,7 @@ public interface ExamService extends IService<Exam> {
 
     boolean addExam(AddExamParam addExamParam);
 
-    List<Exam> findExamListByTid(Integer id,Integer flag);
+    List<Exam> findExamListByTid(Integer id, Integer flag);
 
     List<Exam> findAllExam();
 
@@ -34,9 +34,9 @@ public interface ExamService extends IService<Exam> {
 
     Map<String, List<Integer>> sortByTypeId(Integer id);
 
-    List<ExamQuestionOpts> getQuestionOpts(List<Integer> integers);
+    List<ExamQuestionOpts> getQuestionOpts(List<Integer> integers, Integer flag);
 
-    List<ExamQuestionOthers> getQuestionOthers(List<Integer> integers);
+    List<ExamQuestionOthers> getQuestionOthers(List<Integer> integers, Integer flag);
 
     int judgeAndSaveAns(SubmitExamParam param);
 }

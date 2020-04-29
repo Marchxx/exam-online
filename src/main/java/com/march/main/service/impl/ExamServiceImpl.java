@@ -14,6 +14,7 @@ import com.march.main.service.QuestionService;
 import com.march.main.vo.ExamQuestionOpts;
 import com.march.main.vo.ExamQuestionOthers;
 import com.march.main.vo.OptionContentVo;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -126,6 +127,7 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements Ex
         return question.delete(wrapper);
     }
 
+
     /**
      * 根据考试id，对试题类型进行分类
      *
@@ -136,6 +138,7 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements Ex
     public Map<String, List<Integer>> sortByTypeId(Integer id) {
         Map<String, List<Integer>> map = new HashMap<>();
         for (int i = 1; i <= 4; i++) {
+            //分别查询对应4种类型的题目 题号列表
             List<Integer> list = examQuestionMapper.sortByTypeId(id, i);
             map.put(Integer.toString(i), list);
         }
@@ -147,22 +150,25 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements Ex
      *
      * @param integers
      * @return
+     * @flag 0不带ans，1请求标准答案
      */
     @Override
-    public List<ExamQuestionOpts> getQuestionOpts(List<Integer> integers) {
+    public List<ExamQuestionOpts> getQuestionOpts(List<Integer> integers, Integer flag) {
         List<ExamQuestionOpts> voList = new ArrayList<>();
-        for (Integer i : integers) {
+        for (Integer qid : integers) {
             ExamQuestionOpts vo = new ExamQuestionOpts();
             //查出问题
-            Question q = questionService.getQuestionById(i);
+            Question q = questionService.getQuestionById(qid);
             vo.setQuestionId(q.getQuestionId());
             vo.setQuestionName(q.getQuestionName());
             vo.setQuestionScore(q.getQuestionScore());
             //查出选项
-            List<OptionContentVo> optList = questionService.getOptionDetailById(i);
-            //设置选项答案为空
-            for (OptionContentVo contentVo : optList) {
-                contentVo.setAnswer(null);
+            List<OptionContentVo> optList = questionService.getOptionDetailById(qid);
+            //flag=0，则设置选项答案为空
+            if (flag == 0) {
+                for (OptionContentVo contentVo : optList) {
+                    contentVo.setAnswer(null);
+                }
             }
             vo.setOptList(optList);
             //加入到返回list中
@@ -171,18 +177,28 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements Ex
         return voList;
     }
 
+    /**
+     * flag 0不带ans，1请求标准答案
+     *
+     * @param integers
+     * @return
+     */
     @Override
-    public List<ExamQuestionOthers> getQuestionOthers(List<Integer> integers) {
+    public List<ExamQuestionOthers> getQuestionOthers(List<Integer> integers, Integer flag) {
         List<ExamQuestionOthers> voList = new ArrayList<>();
-        for (Integer i : integers) {
+        for (Integer qid : integers) {
             ExamQuestionOthers vo = new ExamQuestionOthers();
             //查出问题
-            Question q = questionService.getQuestionById(i);
+            Question q = questionService.getQuestionById(qid);
             vo.setQuestionId(q.getQuestionId());
             vo.setQuestionName(q.getQuestionName());
             vo.setQuestionScore(q.getQuestionScore());
-            //设置答案为空
-            vo.setAnswer(null);
+            //查出问题标准答案
+            vo.setAnswer(questionService.getOthersAnswer(qid));
+            //flag=0，则设置答案为空
+            if (flag == 0) {
+                vo.setAnswer(null);
+            }
             voList.add(vo);
         }
         return voList;
@@ -215,6 +231,7 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements Ex
             RecordOption recordOption = new RecordOption();
             recordOption.setRecordId(autoKey);
             recordOption.setQuestionId(multipleParam.getQuestionId());
+            //拼接多选题答案，同时保存答案记录
             StringBuffer sb = new StringBuffer();
             if (multipleParam.getIdx1() == 1) {
                 recordOption.setIdx(1);
@@ -236,7 +253,6 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements Ex
                 recordOption.insert();
                 sb.append(String.valueOf(4));
             }
-            //拼接多选题答案
             if (questionService.checkOptAnswer(multipleParam.getQuestionId(), sb.toString())) {
                 //答案正确,查出问题得分
                 Question question = questionService.getQuestionById(multipleParam.getQuestionId());
@@ -247,7 +263,7 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements Ex
         for (RecordAnswer answer : param.getJudgesAnsList()) {
             answer.setRecordId(autoKey);
             answer.insert();
-            if (questionService.checkOthersAnswer(answer.getQuestionId(), answer.getAnswer())) {
+            if (questionService.getOthersAnswer(answer.getQuestionId()).equals(answer.getAnswer())) {
                 Question question = questionService.getQuestionById(answer.getQuestionId());
                 score += question.getQuestionScore();
             }
@@ -256,7 +272,7 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements Ex
         for (RecordAnswer answer : param.getFillBlanksList()) {
             answer.setRecordId(autoKey);
             answer.insert();
-            if (questionService.checkOthersAnswer(answer.getQuestionId(), answer.getAnswer())) {
+            if (questionService.getOthersAnswer(answer.getQuestionId()).equals(answer.getAnswer())) {
                 Question question = questionService.getQuestionById(answer.getQuestionId());
                 score += question.getQuestionScore();
             }

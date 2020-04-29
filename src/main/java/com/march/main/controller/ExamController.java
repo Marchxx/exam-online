@@ -67,7 +67,13 @@ public class ExamController {
     @ApiOperation(value = "开始考试,获取试卷")
     @GetMapping("/start/{id}")
     public R getExamDetailById(@PathVariable("id") Integer id) {
-        return examBiz.getExamDetailById(id);
+        return examBiz.getExamDetailById(id, 0);
+    }
+
+    @ApiOperation(value = "获取标答试卷")
+    @GetMapping("/standardAns/{id}")
+    public R getStandardAnsById(@PathVariable("id") Integer id) {
+        return examBiz.getExamDetailById(id, 1);
     }
 
     @ApiOperation(value = "结束考试,提交试卷")

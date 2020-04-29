@@ -104,11 +104,11 @@ public class ExamBiz {
     }
 
     /**
-     *
      * @param id
+     * @param flag 0不带ans，1请求标准答案
      * @return
      */
-    public R getExamDetailById(Integer id) {
+    public R getExamDetailById(Integer id, Integer flag) {
         //创建ExamVo返回对象
         ExamDetailVo detailVo = new ExamDetailVo();
         Exam exam = examService.findExamById(id);
@@ -116,10 +116,10 @@ public class ExamBiz {
         Map<String, List<Integer>> map = new HashMap<>();
         if (exam != null) {
             map = examService.sortByTypeId(id);
-            List<ExamQuestionOpts> radios = examService.getQuestionOpts(map.get("1"));
-            List<ExamQuestionOpts> multiples = examService.getQuestionOpts(map.get("2"));
-            List<ExamQuestionOthers> judges = examService.getQuestionOthers(map.get("3"));
-            List<ExamQuestionOthers> fillBlanks = examService.getQuestionOthers(map.get("4"));
+            List<ExamQuestionOpts> radios = examService.getQuestionOpts(map.get("1"), flag);
+            List<ExamQuestionOpts> multiples = examService.getQuestionOpts(map.get("2"), flag);
+            List<ExamQuestionOthers> judges = examService.getQuestionOthers(map.get("3"), flag);
+            List<ExamQuestionOthers> fillBlanks = examService.getQuestionOthers(map.get("4"), flag);
             //封装返回对象
             detailVo.setExam(exam);
             detailVo.setRadios(radios);

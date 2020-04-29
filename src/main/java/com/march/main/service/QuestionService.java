@@ -21,11 +21,11 @@ import java.util.List;
  */
 public interface QuestionService extends IService<Question> {
 
-    boolean checkOthersAnswer(Integer qId, String ans);
-
     boolean checkOptAnswer(Integer qId, String ans);
 
     List<OptionContentVo> getOptionDetailById(Integer id);
+
+    String getOthersAnswer(Integer id);
 
     Question getQuestionById(Integer id);
 

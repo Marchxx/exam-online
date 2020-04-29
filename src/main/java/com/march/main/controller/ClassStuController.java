@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020-04-12
  */
 @RestController
-
 @RequestMapping("/classStu")
 public class ClassStuController {
 

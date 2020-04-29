@@ -14,11 +14,11 @@ public class MyMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //添加的页面都会经过拦截器，并将对应参数放到请求中
-        registry.addInterceptor(new LoginHandlerInterceptor())
-                .addPathPatterns("/user/**")
-                .addPathPatterns("/exam/**")
-                .addPathPatterns("/question/**")
-                .excludePathPatterns("/user/login").excludePathPatterns("/user/register");
+//        registry.addInterceptor(new LoginHandlerInterceptor())
+//                .addPathPatterns("/user/**")
+//                .addPathPatterns("/exam/**")
+//                .addPathPatterns("/question/**")
+//                .excludePathPatterns("/user/login").excludePathPatterns("/user/register");
     }
 
 
