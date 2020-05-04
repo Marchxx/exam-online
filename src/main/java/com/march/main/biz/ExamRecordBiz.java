@@ -3,9 +3,11 @@ package com.march.main.biz;
 import com.march.common.enums.CodeEnum;
 import com.march.common.utils.R;
 import com.march.main.entity.ExamRecord;
+import com.march.main.params.GetRecordListParam;
 import com.march.main.service.ExamRecordService;
 import com.march.main.service.ExamService;
 import com.march.main.vo.RecordAnsVo;
+import com.march.main.vo.RecordExamListVo;
 import com.march.main.vo.RecordExamVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,11 +24,6 @@ public class ExamRecordBiz {
 
     @Autowired
     ExamService examService;
-
-    public R getAllExamRecord() {
-        List<ExamRecord> recordList = recordService.getAllExamRecord();
-        return R.success().put("data", recordList);
-    }
 
     public R getRecordInfoById(Integer rId) {
         try {
@@ -50,5 +47,14 @@ public class ExamRecordBiz {
             return R.error(CodeEnum.OTHER_ERROR);
         }
 
+    }
+
+    public R getExamRecord(GetRecordListParam param) {
+        try {
+            List<RecordExamListVo> voList = recordService.getExamRecord(param);
+            return R.success().put("data", voList);
+        } catch (Exception e) {
+            return R.error(CodeEnum.OTHER_ERROR);
+        }
     }
 }

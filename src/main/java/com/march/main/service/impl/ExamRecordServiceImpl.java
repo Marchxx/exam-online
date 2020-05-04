@@ -8,10 +8,14 @@ import com.march.main.entity.ExamRecord;
 import com.march.main.dao.ExamRecordMapper;
 import com.march.main.entity.RecordAnswer;
 import com.march.main.entity.RecordOption;
+import com.march.main.entity.User;
+import com.march.main.params.GetRecordListParam;
 import com.march.main.service.ExamRecordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.march.main.service.RecordAnswerService;
+import com.march.main.service.UserService;
 import com.march.main.vo.RecordAnsVo;
+import com.march.main.vo.RecordExamListVo;
 import com.march.main.vo.RecordExamVo;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +41,12 @@ public class ExamRecordServiceImpl extends ServiceImpl<ExamRecordMapper, ExamRec
     @Autowired
     RecordOptionMapper optionMapper;
 
+    @Autowired
+    ExamRecordMapper examRecordMapper;
+
+    @Autowired
+    UserService userService;
+
     @Override
     public int addExamRecord(ExamRecord record) {
         boolean insert = record.insert();
@@ -46,10 +56,21 @@ public class ExamRecordServiceImpl extends ServiceImpl<ExamRecordMapper, ExamRec
         return -1;
     }
 
+    /**
+     * 查询考试记录列表,在mapper方法返回结果，再查询tName并加上
+     *
+     * @param param
+     * @return
+     */
     @Override
-    public List<ExamRecord> getAllExamRecord() {
-        ExamRecord examRecord = new ExamRecord();
-        return examRecord.selectAll();
+    public List<RecordExamListVo> getExamRecord(GetRecordListParam param) {
+        List<RecordExamListVo> recordList = examRecordMapper.getExamRecord(param);
+        for (RecordExamListVo record : recordList) {
+            //根据id，查询teaName
+            User user = userService.findUserById(record.getTeacherId());
+            if (user != null) record.setTeacherName(user.getName());
+        }
+        return recordList;
     }
 
     @Override

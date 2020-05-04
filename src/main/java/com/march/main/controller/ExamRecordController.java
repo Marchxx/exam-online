@@ -4,14 +4,11 @@ package com.march.main.controller;
 import com.march.common.utils.R;
 import com.march.main.biz.ExamRecordBiz;
 import com.march.main.entity.ExamRecord;
+import com.march.main.params.GetRecordListParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -29,10 +26,11 @@ public class ExamRecordController {
     @Autowired
     ExamRecordBiz recordBiz;
 
-    @GetMapping("/all")
-    @ApiOperation(value = "查询全部考试记录")
-    public R getAllExamRecord() {
-        return recordBiz.getAllExamRecord();
+    @PostMapping("/condition")
+    @ApiOperation(value = "根据条件查询考试记录列表" +
+            "1班级名称，2参加考试学生用户名 3出卷教师tId 4参与考试学生sId")
+    public R getExamRecord(@RequestBody GetRecordListParam param){
+        return recordBiz.getExamRecord(param);
     }
 
     @ApiOperation(value = "根据recordId查询作答情况")

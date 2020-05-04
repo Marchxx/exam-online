@@ -4,11 +4,48 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.march.main.entity.ExamRecord">
-        <id column="record_id" property="recordId" />
-        <result column="exam_id" property="examId" />
-        <result column="exam_joiner_id" property="examJoinerId" />
-        <result column="exam_time_cost" property="examTimeCost" />
-        <result column="exam_score" property="examScore" />
+        <id column="record_id" property="recordId"/>
+        <result column="exam_id" property="examId"/>
+        <result column="exam_joiner_id" property="examJoinerId"/>
+        <result column="exam_time_cost" property="examTimeCost"/>
+        <result column="exam_score" property="examScore"/>
     </resultMap>
+
+    <select id="getExamRecord" resultType="com.march.main.vo.RecordExamListVo">
+        SELECT
+        er.record_id,
+        exam.exam_id,
+        exam.exam_name,
+        exam.exam_desc,
+        c.teacher_id,
+        `user`.user_name,
+        `user`.`name`,
+        er.exam_score,
+        exam.exam_score_total,
+        exam.exam_time_start,
+        er.exam_time_cost
+        FROM
+        exam_record er
+        LEFT JOIN `user` ON `user`.user_id = er.exam_joiner_id
+        LEFT JOIN exam ON exam.exam_id = er.exam_id
+        LEFT JOIN class c ON c.teacher_id = exam.exam_creator_id
+        <where>
+            <if test="className!=null">
+                AND c.class_name LIKE concat('%',#{className},'%')
+            </if>
+            <if test="userName!=null">
+                AND `user`.user_name LIKE concat('%',#{userName},'%')
+            </if>
+            <if test="tId!=null">
+                AND c.teacher_id = #{tId}
+            </if>
+            <if test="sId!=null">
+                AND er.exam_joiner_id = #{sId}
+            </if>
+        </where>
+        ORDER BY
+        c.class_id,
+        er.exam_score DESC
+    </select>
 
 </mapper>

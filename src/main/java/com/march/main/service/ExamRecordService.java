@@ -3,7 +3,9 @@ package com.march.main.service;
 import com.march.common.utils.R;
 import com.march.main.entity.ExamRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.march.main.params.GetRecordListParam;
 import com.march.main.vo.RecordAnsVo;
+import com.march.main.vo.RecordExamListVo;
 
 import java.util.List;
 
@@ -19,11 +21,11 @@ public interface ExamRecordService extends IService<ExamRecord> {
 
     int addExamRecord(ExamRecord record);
 
-    List<ExamRecord> getAllExamRecord();
-
     Integer getExamId(Integer id);
 
     List<RecordAnsVo> getRecordOptAns(Integer rId, List<Integer> integers);
 
     List<RecordAnsVo> getRecordOtherAns(Integer rId, List<Integer> integers);
+
+    List<RecordExamListVo> getExamRecord(GetRecordListParam param);
 }
