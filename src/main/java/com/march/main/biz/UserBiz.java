@@ -40,8 +40,8 @@ public class UserBiz {
             List<User> userList = userService.findUserListById(param);
             return R.success().put("data", userList);
         }
-        //返回传参错误
-        return R.error(CodeEnum.PARAM_ERROR);
+        //返回权限错误
+        return R.error(CodeEnum.AUTHORIZATION_FAILED);
     }
 
     public R getInfo(Integer id) {
@@ -71,6 +71,10 @@ public class UserBiz {
         //查出用户名是否已存在
         if (userService.getByAccount(user.getUserName()) != null)
             return R.error(CodeEnum.USER_ALREADY_EXIST);
+        //输入的权限id不存在
+        int rId = user.getRoleId();
+        if (rId != 1 && rId != 2 && rId != 3)
+            return R.error(CodeEnum.AUTHORIZATION_FAILED);
         String password = user.getPassword();
         String md5Str = MD5Utils.md5Encode(password, MD5Utils.key);
         user.setPassword(md5Str);

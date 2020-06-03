@@ -10,7 +10,7 @@ import java.util.Date;
 public class JwtUtils {
 
     /**
-     * 过期时间一天,静态域是属于整个类
+     * 设置过期时间一天,静态域属于整个类
      */
     private static long EXPIRE_TIME = 1000 * 60 * 60 * 24;
     /**

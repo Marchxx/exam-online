@@ -1,6 +1,7 @@
 package com.march.main.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
@@ -39,8 +40,20 @@ public class ExamRecord extends Model<ExamRecord> {
     @ApiModelProperty(value = "考试花费时间")
     private Integer examTimeCost;
 
-    @ApiModelProperty(value = "考试总分",hidden = true)
+    @ApiModelProperty(value = "试卷总分",hidden = true)
     private Integer examScore;
+
+    @ApiModelProperty(value = "单选题总分",hidden = true)
+    private Integer examScore1;
+
+    @ApiModelProperty(value = "多选题总分",hidden = true)
+    private Integer examScore2;
+
+    @ApiModelProperty(value = "判断题总分",hidden = true)
+    private Integer examScore3;
+
+    @ApiModelProperty(value = "填空题总分",hidden = true)
+    private Integer examScore4;
 
 
     @Override

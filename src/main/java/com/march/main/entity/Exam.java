@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
@@ -16,7 +17,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author March
@@ -25,10 +26,10 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Exam对象", description="")
+@ApiModel(value = "Exam对象", description = "")
 public class Exam extends Model<Exam> {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "考试表id,主键,自增")
     @TableId(value = "exam_id", type = IdType.AUTO)
@@ -57,18 +58,18 @@ public class Exam extends Model<Exam> {
     private Integer examCreatorId;
 
     @TableField(exist = false)
-    @ApiModelProperty(value = "考试创建者姓名,数据库表中不存在",hidden = true)
+    @ApiModelProperty(value = "考试创建者姓名,数据库表中不存在", hidden = true)
     private String examCreatorName;
 
-    @ApiModelProperty(value = "0未发布,1已发布")
+    @ApiModelProperty(value = "0未发布,1已发布", hidden = true)
     private Integer isIssued;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建时间yyyy-MM-dd HH:mm:ss",hidden = true)
+    @ApiModelProperty(value = "创建时间yyyy-MM-dd HH:mm:ss", hidden = true)
     private LocalDateTime createTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "更新时间yyyy-MM-dd HH:mm:ss",hidden = true)
+    @ApiModelProperty(value = "更新时间yyyy-MM-dd HH:mm:ss", hidden = true)
     private LocalDateTime updateTime;
 
 

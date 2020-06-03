@@ -6,6 +6,7 @@ import com.march.main.dao.QuestionOptionMapper;
 import com.march.main.entity.Question;
 import com.march.main.dao.QuestionMapper;
 import com.march.main.entity.QuestionAnswer;
+import com.march.main.entity.QuestionCategory;
 import com.march.main.entity.QuestionOption;
 import com.march.main.params.GetQuestListParam;
 import com.march.main.params.QuestionOptParam;
@@ -44,6 +45,14 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
 
     @Autowired
     QuestionOptionService qOptService;
+
+    //根据题目分类Name查询题目分类questionCategoryId
+    @Override
+    public Integer getCategoryIdByName(String name) {
+        QuestionCategory questionCategory = new QuestionCategory();
+        QuestionCategory one = questionCategory.selectOne(new QueryWrapper<QuestionCategory>().eq("question_category_name", name));
+        return one.getQuestionCategoryId();
+    }
 
     //检验 选择题答案(字符串拼接)
     @Override

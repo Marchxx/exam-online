@@ -143,14 +143,29 @@ public class ExamBiz {
             int autoKey = examRecordService.addExamRecord(param.getExamRecord());
             param.getExamRecord().setRecordId(autoKey);
             //1.根据答案判分 2.设置生成的roleId，插入对应的记录表 3.返回计算得出的分数
-            int i = examService.judgeAndSaveAns(param);
-            param.getExamRecord().setExamScore(i);
-            //更新试卷记录分数
+            //更新试卷记录的总分以及四种类型的得分情况
+            Map<Integer, Integer> map = examService.judgeAndSaveAns(param);
+            param.getExamRecord().setExamScore(map.get(0));
+            param.getExamRecord().setExamScore1(map.get(1));
+            param.getExamRecord().setExamScore2(map.get(2));
+            param.getExamRecord().setExamScore3(map.get(3));
+            param.getExamRecord().setExamScore4(map.get(4));
             boolean update = param.getExamRecord().updateById();
             return R.success().put("data", "提交试卷成功!");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return R.error(CodeEnum.OTHER_ERROR);
         }
+    }
+
+    /**
+     * 根据试卷id发布试卷
+     *
+     * @param eId
+     * @return
+     */
+    public R issueExamById(Integer eId) {
+        boolean flag = examService.issueExamById(eId);
+        if (flag) return R.success("试卷发布成功");
+        return R.error(CodeEnum.OTHER_ERROR);
     }
 }

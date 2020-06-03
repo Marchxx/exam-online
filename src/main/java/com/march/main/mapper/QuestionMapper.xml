@@ -41,7 +41,9 @@ ORDER BY
         q.question_id,
         q.question_name,
         q.question_score,
+        qt.question_type_id,
         qt.question_type_name,
+        qc.question_category_id,
         qc.question_category_name
         FROM
         question q
@@ -65,7 +67,9 @@ ORDER BY
         q.question_name,
         qa.answer,
         q.question_score,
+        qt.question_type_id,
         qt.question_type_name,
+        qc.question_category_id,
         qc.question_category_name
         FROM
         question q
@@ -82,4 +86,5 @@ ORDER BY
         </where>
         ORDER BY q.question_id
     </select>
+
 </mapper>

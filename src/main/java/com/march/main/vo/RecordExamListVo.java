@@ -30,6 +30,14 @@ public class RecordExamListVo {
 
     private Integer examScore;
 
+    private Integer examScore1;
+
+    private Integer examScore2;
+
+    private Integer examScore3;
+
+    private Integer examScore4;
+
     private Integer examScoreTotal;
 
     private Date examTimeStart;

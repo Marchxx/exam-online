@@ -38,5 +38,7 @@ public interface ExamService extends IService<Exam> {
 
     List<ExamQuestionOthers> getQuestionOthers(List<Integer> integers, Integer flag);
 
-    int judgeAndSaveAns(SubmitExamParam param);
+    Map<Integer, Integer> judgeAndSaveAns(SubmitExamParam param);
+
+    boolean issueExamById(Integer eId);
 }

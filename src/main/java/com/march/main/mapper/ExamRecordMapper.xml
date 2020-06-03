@@ -21,6 +21,10 @@
         `user`.user_name,
         `user`.`name`,
         er.exam_score,
+        er.exam_score1,
+        er.exam_score2,
+        er.exam_score3,
+        er.exam_score4,
         exam.exam_score_total,
         exam.exam_time_start,
         er.exam_time_cost

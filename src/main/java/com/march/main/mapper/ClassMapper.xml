@@ -27,11 +27,10 @@ ORDER BY
     <select id="getStuNotListById" resultType="com.march.main.vo.ClassStuVo">
     SELECT
 	*
-FROM
+	FROM
 	`user`
-WHERE
-	role_id = 3
-AND user_id NOT IN (
+	WHERE role_id = 3
+    AND user_id NOT IN (
 	SELECT
 		cs.stu_id
 	FROM
@@ -42,19 +41,14 @@ AND user_id NOT IN (
 ORDER BY
 	user_id
     </select>
-	<select id="getTeaInfo" resultType="com.march.main.vo.ClassTeaVo">
-	SELECT
-	c.class_id,
-	c.class_name,
-	`user`.user_id,
-	`user`.`name`,
-	`user`.email,
-	`user`.phone
-FROM
-	class_stu cs
-LEFT JOIN class c ON c.class_id = cs.class_id
-LEFT JOIN `user` ON user_id = c.teacher_id
-WHERE
+
+    <select id="getTeaInfo" resultType="com.march.main.vo.ClassTeaVo">
+	SELECT c.class_id,c.class_name,`user`.user_id,`user`.`name`,`user`.email,`user`.phone
+	FROM class_stu cs
+	LEFT JOIN class c ON c.class_id = cs.class_id
+    LEFT JOIN `user` ON user_id = c.teacher_id
+    WHERE
 	cs.stu_id = #{id}
 	</select>
+
 </mapper>

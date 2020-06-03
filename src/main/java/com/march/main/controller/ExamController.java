@@ -39,6 +39,12 @@ public class ExamController {
         return examBiz.findExamListBySid(id);
     }
 
+    @ApiOperation(value = "试卷发布")
+    @GetMapping("/issue/{id}")
+    public R issueExamById(@PathVariable("id") Integer id) {
+        return examBiz.issueExamById(id);
+    }
+
     @ApiOperation(value = "全部考试列表")
     @GetMapping("/list/all")
     public R findAllExam() {
@@ -79,7 +85,6 @@ public class ExamController {
     @ApiOperation(value = "结束考试,提交试卷")
     @PostMapping("/submit")
     public R submitExam(@RequestBody SubmitExamParam param) {
-        System.out.println(param);
         return examBiz.submitExam(param);
     }
 }

@@ -21,6 +21,8 @@ import java.util.List;
  */
 public interface QuestionService extends IService<Question> {
 
+    Integer getCategoryIdByName(String name);
+
     boolean checkOptAnswer(Integer qId, String ans);
 
     List<OptionContentVo> getOptionDetailById(Integer id);

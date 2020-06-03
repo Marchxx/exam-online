@@ -49,14 +49,15 @@ public class ClassServiceImpl extends ServiceImpl<ClassMapper, Class> implements
     @Override
     public int getAddStu(Integer cId, Integer[] stus) {
         ClassStu classStu = new ClassStu();
+        int count = 0;
         for (Integer stu : stus) {
             classStu.setClassId(cId);
             classStu.setStuId(stu);
             boolean insert = classStu.insert();
-            if (!insert)
-                return 0;
+            if (insert)
+                count++;
         }
-        return 1;
+        return count;
     }
 
     @Override
@@ -81,14 +82,15 @@ public class ClassServiceImpl extends ServiceImpl<ClassMapper, Class> implements
     @Override
     public int getDelStu(Integer cId, Integer[] stus) {
         ClassStu classStu = new ClassStu();
+        int count = 0;
         for (Integer stu : stus) {
             QueryWrapper<ClassStu> wrapper = new QueryWrapper<>();
             wrapper.eq("class_id", cId);
             wrapper.eq("stu_id", stu);
             boolean delete = classStu.delete(wrapper);
-            if (!delete)
-                return 0;
+            if (delete)
+                count++;
         }
-        return 1;
+        return count;
     }
 }

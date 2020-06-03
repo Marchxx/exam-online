@@ -14,4 +14,5 @@ import com.march.main.entity.ClassStu;
  */
 public interface ClassStuService extends IService<ClassStu> {
 
+    ClassStu getOneByIds(int cId, Integer sId);
 }

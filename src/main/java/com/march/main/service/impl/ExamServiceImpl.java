@@ -1,7 +1,6 @@
 package com.march.main.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.march.common.utils.R;
 import com.march.main.dao.ExamQuestionMapper;
 import com.march.main.entity.*;
 import com.march.main.dao.ExamMapper;
@@ -14,7 +13,6 @@ import com.march.main.service.QuestionService;
 import com.march.main.vo.ExamQuestionOpts;
 import com.march.main.vo.ExamQuestionOthers;
 import com.march.main.vo.OptionContentVo;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +37,16 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements Ex
 
     @Autowired
     QuestionService questionService;
+
+    //发布试卷
+    @Override
+    public boolean issueExamById(Integer eId) {
+        Exam exam = new Exam();
+        exam.setExamId(eId);
+        //将试卷的发布状态修改为1
+        exam.setIsIssued(1);
+        return exam.updateById();
+    }
 
     @Override
     public Exam findExamById(Integer id) {
@@ -211,10 +219,11 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements Ex
      * @return
      */
     @Override
-    public int judgeAndSaveAns(SubmitExamParam param) {
+    public Map<Integer, Integer> judgeAndSaveAns(SubmitExamParam param) {
         //获取自增长生成的主键roleId
         int autoKey = param.getExamRecord().getRecordId();
-        int score = 0;
+        //分别记录总分和四种类型的题目分数
+        int score = 0, score1 = 0, score2 = 0, score3 = 0, score4 = 0;
         //处理单选题
         for (RecordOption option : param.getRadiosAnsList()) {
             option.setRecordId(autoKey);
@@ -222,7 +231,7 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements Ex
             if (questionService.checkOptAnswer(option.getQuestionId(), option.getIdx().toString())) {
                 //答案正确,查出问题得分
                 Question question = questionService.getQuestionById(option.getQuestionId());
-                score += question.getQuestionScore();
+                score1 += question.getQuestionScore();
             }
         }
         //处理多选题
@@ -256,7 +265,7 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements Ex
             if (questionService.checkOptAnswer(multipleParam.getQuestionId(), sb.toString())) {
                 //答案正确,查出问题得分
                 Question question = questionService.getQuestionById(multipleParam.getQuestionId());
-                score += question.getQuestionScore();
+                score2 += question.getQuestionScore();
             }
         }
         //处理判断题
@@ -265,7 +274,7 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements Ex
             answer.insert();
             if (questionService.getOthersAnswer(answer.getQuestionId()).equals(answer.getAnswer())) {
                 Question question = questionService.getQuestionById(answer.getQuestionId());
-                score += question.getQuestionScore();
+                score3 += question.getQuestionScore();
             }
         }
         //处理填空题
@@ -274,10 +283,18 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements Ex
             answer.insert();
             if (questionService.getOthersAnswer(answer.getQuestionId()).equals(answer.getAnswer())) {
                 Question question = questionService.getQuestionById(answer.getQuestionId());
-                score += question.getQuestionScore();
+                score4 += question.getQuestionScore();
             }
         }
+        score = score1 + score2 + score3 + score4;
+        //将分数存在一个Map里面
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, score);
+        map.put(1, score1);
+        map.put(2, score2);
+        map.put(3, score3);
+        map.put(4, score4);
         System.out.println("score=" + score);
-        return score;
+        return map;
     }
 }

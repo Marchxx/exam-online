@@ -51,7 +51,7 @@ public class ClassController {
     }
 
     @GetMapping("/stuonList/{id}")
-    @ApiOperation(value = "根据c_id,查询已包含的学生列表")
+    @ApiOperation(value = "根据t_id,查询已包含的学生列表")
     public R getStuListById(@PathVariable("id") Integer id) {
         return classBiz.getStuListById(id);
     }
@@ -63,15 +63,15 @@ public class ClassController {
     }
 
     @GetMapping("/stu/add")
-    @ApiOperation(value = "根据c_id和stu_id,批量增加学生")
-    public R getAddStu(Integer cId, Integer[] stus) {
-        return classBiz.getAddStu(cId,stus);
+    @ApiOperation(value = "根据t_id和stu_id,批量增加学生")
+    public R getAddStu(Integer tId, Integer[] stus) {
+        return classBiz.getAddStu(tId,stus);
     }
 
     @GetMapping("/stu/del")
-    @ApiOperation(value = "根据c_id和stu_id,批量删除学生")
-    public R getDelStu(Integer cId, Integer[] stus) {
-        return classBiz.getDelStu(cId,stus);
+    @ApiOperation(value = "根据t_id和stu_id,批量删除学生")
+    public R getDelStu(Integer tId, Integer[] stus) {
+        return classBiz.getDelStu(tId,stus);
     }
 
     @GetMapping("/tea")

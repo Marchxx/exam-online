@@ -1,35 +1,17 @@
 package com.march;
 
-import com.alibaba.excel.EasyExcelFactory;
-import com.alibaba.excel.ExcelWriter;
-import com.march.common.enums.CodeEnum;
-import com.march.common.office.Excel;
 import com.march.common.utils.JwtUtils;
-import com.march.common.utils.R;
 import com.march.main.dao.ClassMapper;
-import com.march.main.dao.ClassStuMapper;
 import com.march.main.dao.QuestionMapper;
-import com.march.main.entity.ClassStu;
 import com.march.main.entity.ExamQuestion;
-import com.march.main.entity.QuestionAnswer;
 import com.march.main.entity.User;
 import com.march.main.params.GetQuestListParam;
-import com.march.main.params.QuestionOtherParam;
 import com.march.main.service.*;
-import com.march.main.vo.ClassStuVo;
-import com.march.main.vo.QuestionAnswerVo;
 import com.march.main.vo.QuestionOptionVo;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.util.CellAddress;
-import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.ss.util.PaneInformation;
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.*;
 
 @SpringBootTest
@@ -71,10 +53,7 @@ class ExamOnlineApplicationTests {
 
     @Test
     void testCheckJwt() {
-        System.out.println(new Date(System.currentTimeMillis()));
-        String jwt = "";
-        System.out.println(jwt);
-        System.out.println(JwtUtils.checkJWT(jwt));
+
     }
 
     @Test
@@ -114,6 +93,7 @@ class ExamOnlineApplicationTests {
 
     @Test
     void testExcel(){
+
     }
 
     @Test

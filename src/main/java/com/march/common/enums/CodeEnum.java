@@ -8,20 +8,28 @@ public enum CodeEnum {
     /*
     操作
      */
-    SUCCESS(200,"请求成功"),
-    OTHER_ERROR(777,"操作失败,请重试!"),
+    SUCCESS(200, "请求成功"),
+    OTHER_ERROR(777, "操作失败,请重试!"),
 
     /*
     认证
      */
-    REGISTER_FAILED(1001,"注册失败"),
+    REGISTER_FAILED(1001, "注册失败"),
     LOGIN_FAILED(1002, "密码错误"),
-    PARAM_ERROR(1003,"参数不正确"),
-    USER_NOT_EXIST(1004,"用户不存在"),
-    USER_ALREADY_EXIST(1005,"用户已存在"),
-    EXAM_NOT_EXIST(1006,"试卷不存在");
+    PARAM_ERROR(1003, "参数不正确"),
+    USER_NOT_EXIST(1004, "用户不存在"),
+    USER_ALREADY_EXIST(1005, "用户已存在"),
+    EXAM_NOT_EXIST(1006, "试卷不存在"),
+    AUTHORIZATION_FAILED(1007, "权限错误"),
+    STU_ALREADY_EXIST(1008, "学生已存在于该班级"),
 
-
+    /*
+    文件
+     */
+    FILE_NOT_EXIST(3000, "文件不存在"),
+    FILE_UPLOAD_FAIL(3001, "文件上传失败"),
+    FILE_OUT_OF_LIMIT(3002, "文件超过限制"),
+    FILE_TYPE_ERROR(3003, "文件类型错误");
 
 //    /*
 //    操作
